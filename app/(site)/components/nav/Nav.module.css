@@ -9,10 +9,10 @@
 }
 
 .navScrolled {
-  background: rgba(13, 13, 13, 0.92);
+  background: rgba(255, 255, 255, 0.96);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid #1A1A1A;
+  border-bottom: 1px solid #E8E3DC;
 }
 
 .inner {
@@ -77,6 +77,13 @@
 }
 
 .link:hover { color: #F5F0EB; }
+
+/* When nav is white, flip link colours to dark */
+.navScrolled .link          { color: #3A3A3A; }
+.navScrolled .link:hover    { color: #0D0D0D; }
+.navScrolled .wordmark      { color: #0D0D0D; }
+.navScrolled .cartBtn       { color: #3A3A3A; }
+.navScrolled .cartBtn:hover { color: #0D0D0D; }
 
 .adminLink {
   font-family: var(--font-body);
