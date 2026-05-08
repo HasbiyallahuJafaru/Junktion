@@ -1,0 +1,78 @@
+:root {
+  /* Brand */
+  --color-orange:        #F15A22;
+  --color-orange-dim:    #F15A2214;
+  --color-orange-mid:    #F15A2240;
+
+  /* Surfaces */
+  --color-base:          #0D0D0D;
+  --color-surface-1:     #111111;
+  --color-surface-2:     #1A1A1A;
+  --color-surface-3:     #222222;
+  --color-footer:        #080808;
+
+  /* Text */
+  --color-text-primary:  #F5F0EB;
+  --color-text-body:     #C8C4BF;
+  --color-text-muted:    #6B6760;
+  --color-text-orange:   #F15A22;
+
+  /* Functional */
+  --color-border:        #1A1A1A;
+  --color-overlay:       rgba(0,0,0,0.6);
+
+  /* Typography */
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  /* Type scale */
+  --text-xs:   0.694rem;
+  --text-sm:   0.833rem;
+  --text-base: 1rem;
+  --text-md:   1.2rem;
+  --text-lg:   1.44rem;
+  --text-xl:   1.728rem;
+  --text-2xl:  2.074rem;
+  --text-3xl:  2.488rem;
+  --text-hero: clamp(4rem, 11vw, 9rem);
+
+  /* Spacing */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   24px;
+  --space-6:   32px;
+  --space-7:   48px;
+  --space-8:   64px;
+  --space-9:   96px;
+  --space-10:  128px;
+  --space-11:  192px;
+
+  /* Letter spacing */
+  --tracking-tight:  -0.02em;
+  --tracking-normal: 0em;
+  --tracking-wide:   0.08em;
+  --tracking-wider:  0.15em;
+
+  /* Easing */
+  --ease-organic:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-snap:     cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  --ease-smooth:   cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Durations */
+  --duration-fast:    150ms;
+  --duration-base:    300ms;
+  --duration-slow:    500ms;
+  --duration-orbit:   20s;
+  --duration-marquee: 18s;
+
+  /* Z-index */
+  --z-base:    0;
+  --z-content: 10;
+  --z-sticky:  100;
+  --z-drawer:  200;
+  --z-modal:   300;
+  --z-toast:   400;
+  --z-grain:   9999;
+}
