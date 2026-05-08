@@ -1,6 +1,12 @@
-const { neon } = require('@neondatabase/serverless')
+const { Client } = require('pg')
 const bcrypt = require('bcryptjs')
 require('dotenv').config({ path: '.env.local' })
+
+async function getClient() {
+  const client = new Client({ connectionString: process.env.DATABASE_URL })
+  await client.connect()
+  return client
+}
 
 const MENU_ITEMS = [
   { name: 'Chicken Shawarma', description: 'Juicy grilled chicken, fresh veggies, garlic sauce wrapped in warm bread', price: 350000, category: 'shawarma', imageUrl: 'https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=600', cloudinaryPublicId: 'junktion/placeholder-shawarma', displayOrder: 1 },
@@ -32,11 +38,11 @@ const REQUIRED_TABLES = [
   'rate_limit_log',
 ]
 
-async function checkTables(sql) {
-  const rows = await sql`
+async function checkTables(client) {
+  const { rows } = await client.query(`
     SELECT table_name FROM information_schema.tables
     WHERE table_schema = 'public'
-  `
+  `)
   const existing = rows.map((r) => r.table_name)
   const missing  = REQUIRED_TABLES.filter((t) => !existing.includes(t))
   if (missing.length > 0) {
@@ -48,40 +54,45 @@ async function checkTables(sql) {
 }
 
 async function seed() {
-  const sql = neon(process.env.DATABASE_URL)
+  const client = await getClient()
 
-  await checkTables(sql)
+  try {
+    await checkTables(client)
 
-  const hash = await bcrypt.hash('JunktionAdmin2025!', 12)
+    const hash = await bcrypt.hash('JunktionAdmin2025!', 12)
 
-  await sql`
-    INSERT INTO users (email, password_hash, name, role, must_change_password)
-    VALUES ('admin@junktion.ng', ${hash}, 'Junktion Admin', 'owner', true)
-    ON CONFLICT (email) DO NOTHING
-  `
-  console.log('Owner account seeded.')
+    await client.query(
+      `INSERT INTO users (email, password_hash, name, role, must_change_password)
+       VALUES ($1, $2, $3, $4, $5)
+       ON CONFLICT (email) DO NOTHING`,
+      ['admin@junktion.ng', hash, 'Junktion Admin', 'owner', true]
+    )
+    console.log('✓ Owner account seeded.')
 
-  await sql`
-    INSERT INTO payment_accounts (account_name, account_number, bank_name, is_primary)
-    VALUES ('Junktion LTD', '5119991680', 'Moniepoint', true)
-    ON CONFLICT DO NOTHING
-  `
-  console.log('Payment account seeded.')
+    await client.query(
+      `INSERT INTO payment_accounts (account_name, account_number, bank_name, is_primary)
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT DO NOTHING`,
+      ['Junktion LTD', '5119991680', 'Moniepoint', true]
+    )
+    console.log('✓ Payment account seeded.')
 
-  for (const item of MENU_ITEMS) {
-    await sql`
-      INSERT INTO menu_items (name, description, price, category, image_url, cloudinary_public_id, is_available, is_featured, display_order)
-      VALUES (
-        ${item.name}, ${item.description}, ${item.price}, ${item.category},
-        ${item.imageUrl}, ${item.cloudinaryPublicId}, true,
-        ${item.displayOrder <= 3}, ${item.displayOrder}
+    for (const item of MENU_ITEMS) {
+      await client.query(
+        `INSERT INTO menu_items (name, description, price, category, image_url, cloudinary_public_id, is_available, is_featured, display_order)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+         ON CONFLICT DO NOTHING`,
+        [item.name, item.description, item.price, item.category,
+         item.imageUrl, item.cloudinaryPublicId, true,
+         item.displayOrder <= 3, item.displayOrder]
       )
-      ON CONFLICT DO NOTHING
-    `
+    }
+    console.log('✓ Menu items seeded (18 items).')
+    console.log('\nDone. Login: admin@junktion.ng / JunktionAdmin2025!')
+    console.log('IMPORTANT: Change this password after first login!')
+  } finally {
+    await client.end()
   }
-  console.log('Menu items seeded (18 items).')
-  console.log('Done. Login: admin@junktion.ng / JunktionAdmin2025!')
-  console.log('IMPORTANT: Change this password after first login!')
 }
 
 seed().catch(console.error)
