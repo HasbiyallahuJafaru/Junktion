@@ -1,0 +1,44 @@
+{
+  "name": "Junktion — Eat. Different.",
+  "short_name": "Junktion",
+  "description": "Premium street food in Kaduna, Nigeria. Order shawarma, pasta, rice and more online.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0D0D0D",
+  "theme_color": "#F15A22",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["food", "shopping"],
+  "shortcuts": [
+    {
+      "name": "Order Now",
+      "url": "/#menu",
+      "description": "Browse the menu and place an order"
+    },
+    {
+      "name": "Track Order",
+      "url": "/track",
+      "description": "Track your order status"
+    }
+  ]
+}

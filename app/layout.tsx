@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Syne, DM_Sans } from 'next/font/google'
 import './globals.css'
 
@@ -16,9 +16,21 @@ const dmSans = DM_Sans({
   display: 'swap',
 })
 
+export const viewport: Viewport = {
+  themeColor: '#F15A22',
+  width: 'device-width',
+  initialScale: 1,
+}
+
 export const metadata: Metadata = {
   title: 'Junktion — Eat. Different.',
   description: 'Premium street food in Kaduna, Nigeria.',
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'Junktion',
+  },
   icons: {
     icon: '/logo.png',
     apple: '/logo.png',
@@ -43,6 +55,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-base text-text-body font-body antialiased overflow-x-hidden" suppressHydrationWarning>
         <div className="grain-overlay" aria-hidden="true" />
         {children}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js');
+              });
+            }
+          `
+        }} />
       </body>
     </html>
   )
