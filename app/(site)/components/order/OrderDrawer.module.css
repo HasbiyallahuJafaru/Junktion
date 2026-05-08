@@ -1,0 +1,348 @@
+/* ── Backdrop ── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  background: rgba(0, 0, 0, 0);
+  pointer-events: none;
+  transition: background 300ms ease;
+}
+
+.backdropVisible {
+  background: rgba(0, 0, 0, 0.55);
+  pointer-events: all;
+  backdrop-filter: blur(2px);
+}
+
+/* ── Drawer panel ── */
+.panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 200;
+  width: min(440px, 100vw);
+  background: #ffffff;
+  border-left: 1px solid #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.panelOpen {
+  transform: translateX(0);
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid #f0f0f0;
+  flex-shrink: 0;
+  background: #ffffff;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.headerIcon {
+  color: #F15A22;
+}
+
+.headerTitle {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #111111;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.badge {
+  background: #F15A22;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 700;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.closeBtn {
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #aaaaaa;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: color 150ms;
+}
+
+.closeBtn:hover { color: #111111; }
+
+/* ── Empty state ── */
+.empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 40px;
+}
+
+.emptyIcon { color: #e5e5e5; }
+
+.emptyText {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111111;
+}
+
+.emptyHint {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: #aaaaaa;
+}
+
+/* ── Scrollable body ── */
+.body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 24px 24px;
+  background: #ffffff;
+  scrollbar-width: thin;
+  scrollbar-color: #e5e5e5 transparent;
+}
+
+.body::-webkit-scrollbar { width: 3px; }
+.body::-webkit-scrollbar-thumb { background: #e5e5e5; }
+
+/* ── Item list ── */
+.itemList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.item {
+  padding: 18px 0;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.item:last-child { border-bottom: none; }
+
+.itemInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.itemName {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #111111;
+  line-height: 1.3;
+}
+
+.itemPrice {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: #aaaaaa;
+  white-space: nowrap;
+}
+
+.itemControls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* Qty stepper */
+.qtyRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid #e5e5e5;
+  border-radius: 999px;
+  padding: 4px 10px;
+}
+
+.qtyBtn {
+  background: none;
+  border: none;
+  color: #aaaaaa;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  transition: color 150ms;
+}
+
+.qtyBtn:hover { color: #F15A22; }
+
+.qty {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #111111;
+  min-width: 16px;
+  text-align: center;
+}
+
+.lineTotal {
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #F15A22;
+  margin-left: auto;
+}
+
+.removeBtn {
+  background: none;
+  border: none;
+  color: #cccccc;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  transition: color 150ms;
+}
+
+.removeBtn:hover { color: #F15A22; }
+
+/* ── Delivery fields ── */
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 24px;
+}
+
+.label {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #aaaaaa;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.optional {
+  font-size: 0.7rem;
+  color: #cccccc;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.input {
+  background: #f8f8f8;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  padding: 11px 14px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: #111111;
+  outline: none;
+  transition: border-color 180ms;
+  width: 100%;
+}
+
+.input::placeholder { color: #cccccc; }
+.input:focus { border-color: #F15A22; }
+
+/* ── Footer ── */
+.footer {
+  flex-shrink: 0;
+  padding: 20px 24px 28px;
+  border-top: 1px solid #f0f0f0;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.totalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.totalLabel {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #aaaaaa;
+}
+
+.totalAmount {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #111111;
+}
+
+.checkoutBtn {
+  width: 100%;
+  padding: 14px;
+  background: #F15A22;
+  color: #ffffff;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 180ms, opacity 180ms;
+}
+
+.checkoutBtn:hover:not(:disabled) { background: #FF6A2F; }
+
+.checkoutBtn:disabled {
+  background: #f0f0f0;
+  color: #aaaaaa;
+  cursor: not-allowed;
+}
+
+.checkoutHint {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: #aaaaaa;
+  text-align: center;
+}
+
+.errorMsg {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: #F15A22;
+  text-align: center;
+}

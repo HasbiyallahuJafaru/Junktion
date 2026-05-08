@@ -1,0 +1,335 @@
+.page {
+  background: #0D0D0D;
+  min-height: 100vh;
+  color: #F5F0EB;
+}
+
+/* ── Top bar ── */
+.topBar {
+  padding: 20px 32px;
+  border-bottom: 1px solid #1A1A1A;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #F5F0EB;
+  text-decoration: none;
+}
+
+/* ── Container ── */
+.container {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 64px 24px 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ── States ── */
+.stateWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 80px 0;
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dots span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #F15A22;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.dots span:nth-child(2) { animation-delay: 0.2s; }
+.dots span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes pulse {
+  0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+  40%           { opacity: 1;   transform: scale(1); }
+}
+
+.stateText {
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: #6B6760;
+}
+
+.errorText {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: #F15A22;
+  text-align: center;
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #F15A22;
+}
+
+.refHeading {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 8vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #F5F0EB;
+  line-height: 1;
+}
+
+.statusLabel {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #F15A22;
+}
+
+.statusLabel[data-cancelled='true'] {
+  color: #6B6760;
+}
+
+.statusHint {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: #6B6760;
+  line-height: 1.5;
+}
+
+/* ── Stepper ── */
+.stepper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 8px 0;
+}
+
+.step {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 16px;
+  row-gap: 0;
+  align-items: start;
+}
+
+.stepDot {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1.5px solid #222;
+  background: #0D0D0D;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+}
+
+.stepDone .stepDot {
+  background: #F15A22;
+  border-color: #F15A22;
+}
+
+.stepCurrent .stepDot {
+  border-color: #F15A22;
+}
+
+.checkmark {
+  font-size: 0.65rem;
+  color: #0D0D0D;
+  font-weight: 700;
+}
+
+.stepPulse {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #F15A22;
+  animation: dotPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%       { transform: scale(1.4); opacity: 0.7; }
+}
+
+.stepLine {
+  width: 1.5px;
+  height: 28px;
+  background: #1A1A1A;
+  margin: 0 auto;
+  grid-column: 1;
+}
+
+.stepLineDone {
+  background: #F15A22;
+}
+
+.stepLabel {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: #6B6760;
+  padding: 4px 0 28px;
+  grid-column: 2;
+  grid-row: 1;
+  align-self: center;
+}
+
+.stepDone .stepLabel,
+.stepCurrent .stepLabel {
+  color: #F5F0EB;
+}
+
+.stepCurrent .stepLabel {
+  font-weight: 600;
+}
+
+/* ── Summary ── */
+.summary {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid #1A1A1A;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #1A1A1A;
+}
+
+.summaryRow:last-child { border-bottom: none; }
+
+.summaryKey {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6B6760;
+  white-space: nowrap;
+}
+
+.summaryVal {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: #F5F0EB;
+  text-align: right;
+}
+
+/* ── Payment block ── */
+.payBlock {
+  background: #111111;
+  border: 1px solid rgba(241, 90, 34, 0.2);
+  border-radius: 4px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.payTitle {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #F15A22;
+  margin-bottom: 8px;
+}
+
+.bankName {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #F5F0EB;
+}
+
+.accountNumber {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #F5F0EB;
+  letter-spacing: 0.06em;
+  margin: 4px 0;
+}
+
+.accountName {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: #6B6760;
+}
+
+.payAmount {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #F15A22;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #1A1A1A;
+}
+
+/* ── Actions ── */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: center;
+}
+
+.whatsappBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 14px;
+  background: #25D366;
+  color: #fff;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 180ms;
+}
+
+.whatsappBtn:hover { background: #20bd5a; }
+
+.backLink {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: #6B6760;
+  text-decoration: none;
+  transition: color 150ms;
+}
+
+.backLink:hover { color: #F15A22; }

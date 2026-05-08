@@ -1,0 +1,84 @@
+.marquee {
+  background: #0D0D0D;
+  padding: 28px 0;
+  border-top: 1px solid rgba(241, 90, 34, 0.15);
+  border-bottom: 1px solid rgba(241, 90, 34, 0.15);
+}
+
+/* ── Scroll tracks ── */
+.track {
+  display: flex;
+  width: max-content;
+  animation: scrollLeft 22s linear infinite;
+  margin-bottom: 6px;
+}
+
+.track:last-of-type {
+  margin-bottom: 0;
+}
+
+.trackReverse {
+  animation-direction: reverse;
+  animation-duration: 28s;
+}
+
+@keyframes scrollLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Individual item ── */
+.item {
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
+  padding: 0 20px;
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #F5F0EB;
+  white-space: nowrap;
+  user-select: none;
+}
+
+/* Every other item gets the orange colour */
+.item:nth-child(odd) {
+  color: rgba(245, 240, 235, 0.35);
+}
+
+/* Separator dot */
+.dot {
+  font-size: 0.45em;
+  color: #F15A22;
+  opacity: 0.7;
+  line-height: 1;
+  vertical-align: middle;
+}
+
+/* ── Edge fades ── */
+.fadeTop,
+.fadeBottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.fadeTop {
+  top: 0;
+  box-shadow: 0 0 18px 10px #0D0D0D;
+}
+
+.fadeBottom {
+  bottom: 0;
+  box-shadow: 0 0 18px 10px #0D0D0D;
+}
+
+/* Pause on hover — feels premium */
+.marquee:hover .track {
+  animation-play-state: paused;
+}

@@ -1,0 +1,115 @@
+.section {
+  background: #111111;
+  padding: 120px 48px;
+  border-top: 1px solid #1A1A1A;
+}
+
+@media (max-width: 768px) {
+  .section { padding: 80px 24px; }
+}
+
+.inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .inner {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+/* ── Left ── */
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #F15A22;
+  margin-bottom: 20px;
+}
+
+.heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: #F5F0EB;
+}
+
+.accent { color: #F15A22; }
+
+/* ── Right ── */
+.right {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding-top: 4px;
+}
+
+.detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.icon {
+  color: #F15A22;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.detailMain {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: #C8C4BF;
+  line-height: 1.6;
+}
+
+.igIcon {
+  font-family: var(--font-display);
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #F15A22;
+  flex-shrink: 0;
+  margin-top: 3px;
+  letter-spacing: 0.04em;
+}
+
+.link {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: #F15A22;
+  text-decoration: none;
+  transition: opacity 150ms;
+}
+
+.link:hover { opacity: 0.75; }
+
+/* ── Order CTA ── */
+.orderBtn {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 12px;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0D0D0D;
+  background: #F15A22;
+  padding: 13px 28px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 180ms;
+  align-self: flex-start;
+}
+
+.orderBtn:hover { background: #FF6A2F; }
