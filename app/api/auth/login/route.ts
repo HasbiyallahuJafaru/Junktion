@@ -11,28 +11,38 @@ import {
 import { checkBodySize } from '@/app/lib/apiMiddleware'
 
 export async function POST(req: NextRequest) {
-  const sizeError = checkBodySize(req)
-  if (sizeError) return sizeError
-
-  const limited = await applyRateLimit(req, '/api/auth/login')
-  if (limited) return limited
-
-  let body: unknown
-  try { body = await req.json() }
-  catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
-
-  const parsed = loginSchema.safeParse(body)
-  if (!parsed.success)
-    return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
-
-  const locked = await isAccountLocked(parsed.data.email)
-  if (locked)
-    return NextResponse.json(
-      { error: 'Account temporarily locked. Try again in 15 minutes.' },
-      { status: 429 }
-    )
-
   try {
+    const sizeError = checkBodySize(req)
+    if (sizeError) return sizeError
+
+    /* Rate limit — if DB is down fall through rather than crash */
+    try {
+      const limited = await applyRateLimit(req, '/api/auth/login')
+      if (limited) return limited
+    } catch (e) {
+      console.error('[login] rate-limit check failed:', e)
+    }
+
+    let body: unknown
+    try { body = await req.json() }
+    catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
+
+    const parsed = loginSchema.safeParse(body)
+    if (!parsed.success)
+      return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
+
+    /* Account lock — if DB is down fall through */
+    try {
+      const locked = await isAccountLocked(parsed.data.email)
+      if (locked)
+        return NextResponse.json(
+          { error: 'Account temporarily locked. Try again in 15 minutes.' },
+          { status: 429 }
+        )
+    } catch (e) {
+      console.error('[login] account-lock check failed:', e)
+    }
+
     const [user] = await db.select().from(users)
       .where(eq(users.email, parsed.data.email)).limit(1)
 
@@ -43,12 +53,12 @@ export async function POST(req: NextRequest) {
     const ip = getClientIp(req)
 
     if (!user || !user.isActive || !valid) {
-      if (user) await recordFailedLogin(parsed.data.email, ip)
+      try { if (user) await recordFailedLogin(parsed.data.email, ip) } catch {}
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 })
     }
 
-    await clearLoginAttempts(parsed.data.email)
-    pruneStaleRows()  // fire-and-forget cleanup
+    try { await clearLoginAttempts(parsed.data.email) } catch {}
+    pruneStaleRows()
 
     const payload = {
       sub:                user.id,
