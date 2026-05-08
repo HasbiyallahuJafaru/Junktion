@@ -65,6 +65,14 @@ export function Hero() {
         <div className={styles.dotB} />
       </div>
 
+      {/* White paint splashes */}
+      <div className={styles.splashes} aria-hidden="true">
+        <div className={styles.splashA} />
+        <div className={styles.splashB} />
+        <div className={styles.splashC} />
+        <div className={styles.splashD} />
+      </div>
+
       {/* Orange radial glow */}
       <div className={styles.glow} aria-hidden="true" />
 

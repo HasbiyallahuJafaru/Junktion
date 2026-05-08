@@ -96,6 +96,85 @@
   background: rgba(241, 90, 34, 0.35);
 }
 
+/* ── White paint splashes (Nickelodeon-style soft blobs) ── */
+.splashes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Large off-centre blob — upper right */
+.splashA {
+  position: absolute;
+  top: 8%;
+  right: 12%;
+  width: 340px;
+  height: 260px;
+  border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+  background: radial-gradient(
+    ellipse at 45% 50%,
+    rgba(255, 255, 255, 0.055) 0%,
+    rgba(255, 255, 255, 0.022) 45%,
+    transparent 72%
+  );
+  filter: blur(32px);
+  transform: rotate(-14deg);
+}
+
+/* Medium splash — mid-left, organic tear-drop shape */
+.splashB {
+  position: absolute;
+  top: 42%;
+  left: 5%;
+  width: 220px;
+  height: 300px;
+  border-radius: 38% 62% 45% 55% / 55% 45% 60% 40%;
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    rgba(255, 255, 255, 0.048) 0%,
+    rgba(255, 255, 255, 0.018) 50%,
+    transparent 75%
+  );
+  filter: blur(28px);
+  transform: rotate(22deg);
+}
+
+/* Small bright splat — centre-right, near orbit */
+.splashC {
+  position: absolute;
+  top: 30%;
+  right: 28%;
+  width: 140px;
+  height: 160px;
+  border-radius: 50% 50% 42% 58% / 48% 54% 46% 52%;
+  background: radial-gradient(
+    ellipse at 55% 45%,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.025) 40%,
+    transparent 70%
+  );
+  filter: blur(20px);
+  transform: rotate(-8deg);
+}
+
+/* Tiny fleck — lower centre, near headline */
+.splashD {
+  position: absolute;
+  bottom: 22%;
+  left: 32%;
+  width: 90px;
+  height: 110px;
+  border-radius: 55% 45% 60% 40% / 52% 48% 56% 44%;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    rgba(255, 255, 255, 0.06) 0%,
+    transparent 65%
+  );
+  filter: blur(16px);
+  transform: rotate(35deg);
+}
+
 /* ── Orbit ring — squished container creates ellipse ── */
 .orbitRing {
   transform: scale(1, 0.42);

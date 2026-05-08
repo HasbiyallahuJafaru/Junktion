@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { Suspense, useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAdminAuth } from '@/app/context/AdminAuthContext'
 import styles from './Login.module.css'
 
-/** Admin login page — email + password, wires into AdminAuthContext */
-export default function LoginPage() {
+/** Inner component that reads search params — must be inside Suspense */
+function LoginForm() {
   const router       = useRouter()
   const params       = useSearchParams()
   const { login, user, isLoading } = useAdminAuth()
@@ -16,7 +16,6 @@ export default function LoginPage() {
   const [error, setError]       = useState<string | null>(null)
   const [busy, setBusy]         = useState(false)
 
-  // Already authenticated — redirect
   useEffect(() => {
     if (!isLoading && user) {
       router.replace(params.get('from') ?? '/admin/orders')
@@ -99,5 +98,14 @@ export default function LoginPage() {
         </form>
       </div>
     </main>
+  )
+}
+
+/** Admin login page — wrapped in Suspense for useSearchParams */
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   )
 }

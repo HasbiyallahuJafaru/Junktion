@@ -6,7 +6,11 @@
 }
 
 @media (max-width: 768px) {
-  .section { padding: 64px 24px 80px; }
+  .section { padding: 64px 20px 80px; }
+}
+
+@media (max-width: 480px) {
+  .section { padding: 56px 16px 72px; }
 }
 
 /* ── Eyebrow label ── */
@@ -32,7 +36,7 @@
 
 .heading {
   font-family: var(--font-display);
-  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  font-size: clamp(2.2rem, 6vw, 5.5rem);
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.02em;

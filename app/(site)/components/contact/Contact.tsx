@@ -1,12 +1,25 @@
+'use client'
+
+import { useRef } from 'react'
 import { MapPin, Phone, Clock } from 'lucide-react'
+import { useScrollReveal } from '@/app/hooks/useScrollReveal'
 import styles from './Contact.module.css'
 
-/** Contact / Find Us section */
+/** Contact / Find Us section with scroll reveal. */
 export function Contact() {
+  const ref = useRef<HTMLElement>(null)
+
+  useScrollReveal(ref, [`.${styles.eyebrow}`, `.${styles.heading}`], {
+    y: 36, stagger: 0.1, start: 'top 82%',
+  })
+
+  useScrollReveal(ref, [`.${styles.detail}`, `.${styles.orderBtn}`], {
+    y: 32, stagger: 0.1, start: 'top 80%',
+  })
+
   return (
-    <section id="contact" className={styles.section} aria-label="Find us">
+    <section ref={ref} id="contact" className={styles.section} aria-label="Find us">
       <div className={styles.inner}>
-        {/* Left — heading */}
         <div className={styles.left}>
           <p className={styles.eyebrow}>Find Us</p>
           <h2 className={styles.heading}>
@@ -15,7 +28,6 @@ export function Contact() {
           </h2>
         </div>
 
-        {/* Right — details */}
         <div className={styles.right}>
           <div className={styles.detail}>
             <MapPin size={18} strokeWidth={1.5} className={styles.icon} />
@@ -50,7 +62,6 @@ export function Contact() {
             </a>
           </div>
 
-          {/* Order CTA */}
           <a href="#menu" className={styles.orderBtn}>
             Order Now ↑
           </a>

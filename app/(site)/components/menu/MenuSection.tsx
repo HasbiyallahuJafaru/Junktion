@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { formatPrice } from '@/app/lib/utils'
 import { useCart } from '@/app/context/CartContext'
+import { useScrollReveal } from '@/app/hooks/useScrollReveal'
 import { MenuItem } from './MenuItem'
 import styles from './MenuSection.module.css'
 
@@ -33,11 +34,16 @@ interface PublicMenuItem {
  * renders items in an asymmetric grid with add-to-cart.
  */
 export function MenuSection() {
-  const [items, setItems]       = useState<PublicMenuItem[]>([])
-  const [active, setActive]     = useState('all')
-  const [loading, setLoading]   = useState(true)
-  const [error, setError]       = useState(false)
-  const { addItem }             = useCart()
+  const [items, setItems]     = useState<PublicMenuItem[]>([])
+  const [active, setActive]   = useState('all')
+  const [loading, setLoading] = useState(true)
+  const [error, setError]     = useState(false)
+  const { addItem }           = useCart()
+  const sectionRef            = useRef<HTMLElement>(null)
+
+  useScrollReveal(sectionRef, [`.${styles.eyebrow}`, `.${styles.heading}`, `.${styles.tabs}`], {
+    y: 40, stagger: 0.12, start: 'top 85%',
+  })
 
   useEffect(() => {
     fetch('/api/menu')
@@ -55,8 +61,7 @@ export function MenuSection() {
     : items.filter((i) => i.category === active)
 
   return (
-    <section id="menu" className={styles.section}>
-      {/* Section label */}
+    <section ref={sectionRef} id="menu" className={styles.section}>
       <p className={styles.eyebrow}>The Menu</p>
 
       <div className={styles.header}>
@@ -65,7 +70,6 @@ export function MenuSection() {
           <span className={styles.headingAccent}>what you want.</span>
         </h2>
 
-        {/* Category filter tabs */}
         <div className={styles.tabs} role="tablist" aria-label="Menu categories">
           {CATEGORIES.map((cat) => (
             <button
@@ -81,7 +85,6 @@ export function MenuSection() {
         </div>
       </div>
 
-      {/* States */}
       {loading && (
         <div className={styles.state}>
           <span className={styles.loadingDot} />
@@ -96,7 +99,6 @@ export function MenuSection() {
         </p>
       )}
 
-      {/* Grid */}
       {!loading && !error && (
         <div className={styles.grid}>
           {visible.map((item, i) => (
