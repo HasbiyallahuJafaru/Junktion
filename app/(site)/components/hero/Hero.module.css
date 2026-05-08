@@ -1,0 +1,89 @@
+/* Orbit ring — squished container creates ellipse */
+.orbitRing {
+  transform: scale(1, 0.42);
+  width: 380px;
+  height: 380px;
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  translate: -50% -50%;
+}
+
+.orbitItem {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120px;
+  height: 120px;
+  margin: -60px 0 0 -60px;
+  animation: orbit 20s linear infinite;
+  animation-delay: var(--orbit-delay, 0s);
+}
+
+/* Counter-squish keeps images circular */
+.orbitItem :global(img) {
+  transform: scale(1, 2.381);
+  border-radius: 50%;
+  object-fit: cover;
+  width: 120px !important;
+  height: 120px !important;
+}
+
+@keyframes orbit {
+  from {
+    transform: rotate(var(--orbit-start, 0deg)) translateX(190px) rotate(calc(-1 * var(--orbit-start, 0deg)));
+  }
+  to {
+    transform: rotate(calc(var(--orbit-start, 0deg) + 360deg))
+               translateX(190px)
+               rotate(calc(-1 * (var(--orbit-start, 0deg) + 360deg)));
+  }
+}
+
+.orbitItem:nth-child(1) { --orbit-start: 0deg; }
+.orbitItem:nth-child(2) { --orbit-start: 120deg; }
+.orbitItem:nth-child(3) { --orbit-start: 240deg; }
+
+/* Orange radial glow centered on orbit */
+.glow {
+  position: absolute;
+  top: 50%;
+  left: 55%;
+  translate: -50% -50%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(241,90,34,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Mobile orbit scaling */
+@media (max-width: 768px) {
+  .orbitRing {
+    width: 260px;
+    height: 260px;
+    left: 50%;
+    top: 40%;
+  }
+
+  .orbitItem {
+    width: 80px;
+    height: 80px;
+    margin: -40px 0 0 -40px;
+  }
+
+  .orbitItem :global(img) {
+    width: 80px !important;
+    height: 80px !important;
+  }
+
+  @keyframes orbit {
+    from {
+      transform: rotate(var(--orbit-start, 0deg)) translateX(130px) rotate(calc(-1 * var(--orbit-start, 0deg)));
+    }
+    to {
+      transform: rotate(calc(var(--orbit-start, 0deg) + 360deg))
+                 translateX(130px)
+                 rotate(calc(-1 * (var(--orbit-start, 0deg) + 360deg)));
+    }
+  }
+}
