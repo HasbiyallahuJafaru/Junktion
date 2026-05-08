@@ -1,21 +1,21 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Image from 'next/image'
+import { Plus } from 'lucide-react'
 import { formatPrice } from '@/app/lib/utils'
 import { useCart } from '@/app/context/CartContext'
-import { useScrollReveal } from '@/app/hooks/useScrollReveal'
-import { MenuItem } from './MenuItem'
 import styles from './MenuSection.module.css'
 
-const CATEGORIES = [
-  { key: 'all',      label: 'All' },
-  { key: 'shawarma', label: 'Shawarma' },
-  { key: 'sandwich', label: 'Sandwich' },
-  { key: 'pasta',    label: 'Pasta' },
-  { key: 'rice',     label: 'Rice' },
-  { key: 'sides',    label: 'Sides' },
-  { key: 'drinks',   label: 'Drinks' },
-]
+const CATEGORY_ORDER = ['shawarma', 'sandwich', 'pasta', 'rice', 'sides', 'drinks']
+const CATEGORY_LABELS: Record<string, string> = {
+  shawarma: 'Shawarma',
+  sandwich: 'Sandwich',
+  pasta:    'Pasta',
+  rice:     'Rice',
+  sides:    'Sides',
+  drinks:   'Drinks',
+}
 
 interface PublicMenuItem {
   id: string
@@ -29,99 +29,173 @@ interface PublicMenuItem {
   displayOrder: number
 }
 
-/**
- * MenuSection — fetches live menu from /api/menu, filters by category,
- * renders items in an asymmetric grid with add-to-cart.
- */
+function groupByCategory(items: PublicMenuItem[]) {
+  const map: Record<string, PublicMenuItem[]> = {}
+  for (const item of items) {
+    if (!map[item.category]) map[item.category] = []
+    map[item.category].push(item)
+  }
+  return CATEGORY_ORDER
+    .filter((c) => map[c]?.length)
+    .map((c) => ({ key: c, label: CATEGORY_LABELS[c], items: map[c] }))
+}
+
 export function MenuSection() {
   const [items, setItems]     = useState<PublicMenuItem[]>([])
-  const [active, setActive]   = useState('all')
   const [loading, setLoading] = useState(true)
   const [error, setError]     = useState(false)
   const { addItem }           = useCart()
-  const sectionRef            = useRef<HTMLElement>(null)
-
-  useScrollReveal(sectionRef, [`.${styles.eyebrow}`, `.${styles.heading}`, `.${styles.tabs}`], {
-    y: 40, stagger: 0.12, start: 'top 85%',
-  })
-
   useEffect(() => {
-    fetch('/api/menu')
+    const controller = new AbortController()
+
+    fetch('/api/menu', { signal: controller.signal })
       .then((r) => r.json())
-      .then((data) => {
-        if (data.items) setItems(data.items)
-        else setError(true)
+      .then((data: { items?: PublicMenuItem[] }) => {
+        if (!data.items) { setError(true); return }
+        const seen = new Set<string>()
+        setItems(data.items.filter((i) => {
+          if (seen.has(i.id)) return false
+          seen.add(i.id)
+          return true
+        }))
       })
-      .catch(() => setError(true))
+      .catch((err) => { if (err.name !== 'AbortError') setError(true) })
       .finally(() => setLoading(false))
+
+    return () => controller.abort()
   }, [])
 
-  const visible = active === 'all'
-    ? items
-    : items.filter((i) => i.category === active)
+  const groups = groupByCategory(items)
+  const totalItems = items.length
 
   return (
-    <section ref={sectionRef} id="menu" className={styles.section}>
-      <p className={styles.eyebrow}>The Menu</p>
-
+    <section id="menu" className={styles.section}>
+      {/* ── Header ── */}
       <div className={styles.header}>
-        <h2 className={styles.heading}>
-          Order<br />
-          <span className={styles.headingAccent}>what you want.</span>
-        </h2>
-
-        <div className={styles.tabs} role="tablist" aria-label="Menu categories">
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat.key}
-              role="tab"
-              aria-selected={active === cat.key}
-              onClick={() => setActive(cat.key)}
-              className={`${styles.tab} ${active === cat.key ? styles.tabActive : ''}`}
-            >
-              {cat.label}
-            </button>
-          ))}
+        <div className={styles.headerLeft}>
+          <p className={styles.eyebrow}>
+            // {String(totalItems).padStart(2, '0')} ITEMS · ORDER ONLINE
+          </p>
+          <h2 className={styles.heading}>
+            The menu.<br />
+            <span className={styles.headingLight}>We keep it fresh.</span>
+          </h2>
         </div>
+        <p className={styles.headerDesc}>
+          Every item crafted in our kitchen — shawarma rolled tight, jollof smoked right,
+          drinks poured cold. If it&apos;s on the board, it earned its spot.
+        </p>
       </div>
 
+      {/* ── States ── */}
       {loading && (
-        <div className={styles.state}>
-          <span className={styles.loadingDot} />
-          <span className={styles.loadingDot} />
-          <span className={styles.loadingDot} />
+        <div className={styles.loadingState}>
+          <span className={styles.dot} /><span className={styles.dot} /><span className={styles.dot} />
         </div>
       )}
+      {error && <p className={styles.errorMsg}>Couldn&apos;t load the menu — try refreshing.</p>}
 
-      {error && (
-        <p className={styles.errorMsg}>
-          Couldn&apos;t load the menu right now — try refreshing.
-        </p>
-      )}
-
+      {/* ── Category sections ── */}
       {!loading && !error && (
-        <div className={styles.grid}>
-          {visible.map((item, i) => (
-            <MenuItem
-              key={item.id}
-              item={item}
-              index={i}
-              onAdd={() =>
-                addItem({
-                  id:       item.id,
-                  name:     item.name,
-                  price:    item.price,
-                  category: item.category,
-                })
-              }
-              formatPrice={formatPrice}
+        <div className={styles.feed}>
+          {groups.map((group, gi) => (
+            <CategorySection
+              key={group.key}
+              group={group}
+              groupIndex={gi}
+              onAdd={(item) => addItem({
+                id: item.id, name: item.name,
+                price: item.price, category: item.category,
+              })}
             />
           ))}
-          {visible.length === 0 && (
-            <p className={styles.emptyMsg}>Nothing here yet — check back soon.</p>
-          )}
         </div>
       )}
     </section>
+  )
+}
+
+interface Group { key: string; label: string; items: PublicMenuItem[] }
+
+function CategorySection({ group, groupIndex, onAdd }: {
+  group: Group
+  groupIndex: number
+  onAdd: (item: PublicMenuItem) => void
+}) {
+  const ref           = useRef<HTMLDivElement>(null)
+  const [vis, setVis] = useState(false)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    let obs: IntersectionObserver | null = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVis(true); obs?.disconnect(); obs = null } },
+      { threshold: 0.05 }
+    )
+    obs.observe(el)
+    return () => { obs?.disconnect(); obs = null }
+  }, [])
+
+  return (
+    <div ref={ref} className={`${styles.categorySection} ${vis ? styles.categorySectionVisible : ''}`}>
+      {/* Category label */}
+      <div className={styles.categoryHeader}>
+        <span className={styles.categoryIndex}>
+          {String(groupIndex + 1).padStart(2, '0')}
+        </span>
+        <span className={styles.categoryLabel}>{group.label}</span>
+        <span className={styles.categoryLine} aria-hidden="true" />
+        <span className={styles.categoryCount}>{group.items.length} item{group.items.length !== 1 ? 's' : ''}</span>
+      </div>
+
+      {/* 5-column grid */}
+      <div className={styles.grid}>
+        {group.items.map((item, i) => (
+          <MenuCard
+            key={item.id}
+            item={item}
+            index={i}
+            onAdd={() => onAdd(item)}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function MenuCard({ item, index, onAdd }: { item: PublicMenuItem; index: number; onAdd: () => void }) {
+  return (
+    <div
+      className={styles.card}
+      style={{ '--i': index } as React.CSSProperties}
+    >
+      <div className={styles.imgArea}>
+        {item.isFeatured && (
+          <span className={styles.badge}>Staff Pick</span>
+        )}
+        <div className={styles.imgInner}>
+          <Image
+            src={item.imageUrl}
+            alt={item.name}
+            fill
+            sizes="(max-width: 600px) 44vw, (max-width: 1024px) 30vw, 240px"
+            className={styles.img}
+            unoptimized={item.imageUrl.includes('unsplash')}
+          />
+        </div>
+      </div>
+
+      <div className={styles.cardInfo}>
+        <div className={styles.nameRow}>
+          <h3 className={styles.itemName}>{item.name}</h3>
+          <span className={styles.itemPrice}>{formatPrice(item.price)}</span>
+        </div>
+        <p className={styles.itemDesc}>{item.description}</p>
+        <button onClick={onAdd} className={styles.addBtn} aria-label={`Add ${item.name}`}>
+          <Plus size={12} strokeWidth={2.5} />
+          Add to order
+        </button>
+      </div>
+    </div>
   )
 }

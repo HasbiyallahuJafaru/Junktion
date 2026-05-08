@@ -1,29 +1,41 @@
+/* ── Page shell ── */
 .page {
   min-height: 100vh;
   background: #0D0D0D;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-}
-
-.card {
-  width: 100%;
-  max-width: 380px;
-  display: flex;
   flex-direction: column;
-  gap: 28px;
 }
 
-.brand {
+/* ── Top header ── */
+.header {
+  width: 100%;
+  border-bottom: 1px solid #1A1A1A;
+  background: #111111;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.headerInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 56px;
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 32px;
+}
+
+.headerBrand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .wordmark {
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: 0.88rem;
   font-weight: 800;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -32,23 +44,81 @@
 
 .badge {
   font-family: var(--font-body);
-  font-size: 0.65rem;
+  font-size: 0.6rem;
   font-weight: 600;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #0D0D0D;
   background: #F15A22;
-  padding: 3px 8px;
+  padding: 2px 7px;
   border-radius: 999px;
+}
+
+.headerNav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex: 1;
+}
+
+.headerNavItem {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9A9590;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 180ms;
+}
+
+.headerNavItem:hover { color: #F5F0EB; }
+
+.backLink {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #3A3A3A;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 180ms;
+  flex-shrink: 0;
+}
+
+.backLink:hover { color: #6B6760; }
+
+/* ── Main / card area ── */
+.main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px 80px;
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .heading {
   font-family: var(--font-display);
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 800;
   color: #F5F0EB;
   letter-spacing: -0.02em;
-  margin-top: -8px;
+}
+
+.sub {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  color: #6B6760;
+  line-height: 1.5;
+  margin-top: -12px;
 }
 
 .form {
@@ -116,13 +186,8 @@
 .btn:hover:not(:disabled) { background: #FF6A2F; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
-.backLink {
-  font-family: var(--font-body);
-  font-size: 0.78rem;
-  color: #3A3A3A;
-  text-decoration: none;
-  transition: color 180ms;
-  align-self: flex-start;
+/* ── Mobile — hide nav preview, keep back link ── */
+@media (max-width: 640px) {
+  .headerNav { display: none; }
+  .headerInner { gap: 16px; }
 }
-
-.backLink:hover { color: #6B6760; }

@@ -109,7 +109,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           >
             <Menu size={20} strokeWidth={1.5} />
           </button>
-          <span className={styles.mobileWordmark}>Junktion</span>
+          <span className={styles.mobileWordmark}>Junktion Admin</span>
           <div style={{ width: 36 }} />
         </header>
 
@@ -125,6 +125,20 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
           {children}
         </div>
       </div>
+
+      {/* Mobile bottom tab bar — always visible nav */}
+      <nav className={styles.bottomBar} aria-label="Admin navigation">
+        {visibleNav.map(({ href, label, icon: Icon }) => (
+          <Link
+            key={href}
+            href={href}
+            className={`${styles.bottomTab} ${pathname.startsWith(href) ? styles.bottomTabActive : ''}`}
+          >
+            <Icon size={20} strokeWidth={1.5} />
+            <span>{label}</span>
+          </Link>
+        ))}
+      </nav>
     </div>
   )
 }

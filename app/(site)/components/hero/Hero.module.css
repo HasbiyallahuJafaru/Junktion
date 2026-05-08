@@ -87,7 +87,7 @@
   background: rgba(241, 90, 34, 0.35);
 }
 
-/* ── White paint splashes ── */
+/* ── Liquid splash drops ── */
 .splashes {
   position: absolute;
   inset: 0;
@@ -95,71 +95,69 @@
   overflow: hidden;
 }
 
-.splashA {
+.splash {
   position: absolute;
-  top: 8%;
-  right: 12%;
-  width: 340px;
-  height: 260px;
-  border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
-  background: radial-gradient(
-    ellipse at 45% 50%,
-    rgba(255, 255, 255, 0.055) 0%,
-    rgba(255, 255, 255, 0.022) 45%,
-    transparent 72%
-  );
-  filter: blur(32px);
-  transform: rotate(-14deg);
+  filter: blur(1.5px);
 }
 
-.splashB {
-  position: absolute;
-  top: 42%;
-  left: 5%;
+/* Splash 1 — large crown, upper right */
+.splash1 {
   width: 220px;
-  height: 300px;
-  border-radius: 38% 62% 45% 55% / 55% 45% 60% 40%;
-  background: radial-gradient(
-    ellipse at 50% 40%,
-    rgba(255, 255, 255, 0.048) 0%,
-    rgba(255, 255, 255, 0.018) 50%,
-    transparent 75%
-  );
-  filter: blur(28px);
-  transform: rotate(22deg);
+  height: 220px;
+  top: 4%;
+  right: 8%;
+  transform: rotate(12deg);
+  opacity: 0.9;
 }
 
-.splashC {
-  position: absolute;
-  top: 30%;
-  right: 28%;
-  width: 140px;
-  height: 160px;
-  border-radius: 50% 50% 42% 58% / 48% 54% 46% 52%;
-  background: radial-gradient(
-    ellipse at 55% 45%,
-    rgba(255, 255, 255, 0.07) 0%,
-    rgba(255, 255, 255, 0.025) 40%,
-    transparent 70%
-  );
-  filter: blur(20px);
-  transform: rotate(-8deg);
+/* Splash 2 — medium, upper left, tilted */
+.splash2 {
+  width: 160px;
+  height: 175px;
+  top: 10%;
+  left: 6%;
+  transform: rotate(-22deg);
+  opacity: 0.85;
 }
 
-.splashD {
-  position: absolute;
-  bottom: 22%;
-  left: 32%;
-  width: 90px;
-  height: 110px;
-  border-radius: 55% 45% 60% 40% / 52% 48% 56% 44%;
-  background: radial-gradient(
-    ellipse at 50% 50%,
-    rgba(255, 255, 255, 0.06) 0%,
-    transparent 65%
-  );
-  filter: blur(16px);
-  transform: rotate(35deg);
+/* Splash 3 — small tight, mid right */
+.splash3 {
+  width: 110px;
+  height: 122px;
+  top: 38%;
+  right: 14%;
+  transform: rotate(8deg);
+  opacity: 0.9;
+}
+
+/* Splash 4 — wide flat, lower centre-left */
+.splash4 {
+  width: 240px;
+  height: 148px;
+  bottom: 20%;
+  left: 8%;
+  transform: rotate(-6deg);
+  opacity: 0.8;
+}
+
+/* Splash 5 — tiny droplet cluster, top centre */
+.splash5 {
+  width: 88px;
+  height: 100px;
+  top: 18%;
+  left: 42%;
+  transform: rotate(18deg);
+  opacity: 0.85;
+}
+
+/* Splash 6 — elongated, lower right */
+.splash6 {
+  width: 130px;
+  height: 182px;
+  bottom: 12%;
+  right: 22%;
+  transform: rotate(-14deg);
+  opacity: 0.8;
 }
 
 /* ── Large decorative background text ── */
@@ -204,56 +202,6 @@
   from { opacity: 0; transform: translateY(30px) scale(0.96); }
   to   { opacity: 1; transform: translateY(0) scale(1); }
 }
-
-/* ── Orbit wrap — centred, sits over the background text ── */
-.orbitWrap {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50% -60%;
-  z-index: 3;
-}
-
-/* ── Orbit ring — squished container creates ellipse ── */
-.orbitRing {
-  transform: scale(1, 0.42);
-  width: 380px;
-  height: 380px;
-}
-
-.orbitItem {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 120px;
-  height: 120px;
-  margin: -60px 0 0 -60px;
-  animation: orbit 20s linear infinite;
-  animation-delay: var(--orbit-delay, 0s);
-}
-
-.orbitItem :global(img) {
-  transform: scale(1, 2.381);
-  border-radius: 50%;
-  object-fit: cover;
-  width: 120px !important;
-  height: 120px !important;
-}
-
-@keyframes orbit {
-  from {
-    transform: rotate(var(--orbit-start, 0deg)) translateX(190px) rotate(calc(-1 * var(--orbit-start, 0deg)));
-  }
-  to {
-    transform: rotate(calc(var(--orbit-start, 0deg) + 360deg))
-               translateX(190px)
-               rotate(calc(-1 * (var(--orbit-start, 0deg) + 360deg)));
-  }
-}
-
-.orbitItem:nth-child(1) { --orbit-start: 0deg; }
-.orbitItem:nth-child(2) { --orbit-start: 120deg; }
-.orbitItem:nth-child(3) { --orbit-start: 240deg; }
 
 /* ── Orange radial glow ── */
 .glow {
@@ -442,26 +390,6 @@
     font-size: clamp(4.5rem, 22vw, 8rem);
   }
 
-  .orbitWrap {
-    translate: -50% -65%;
-  }
-
-  .orbitRing {
-    width: 260px;
-    height: 260px;
-  }
-
-  .orbitItem {
-    width: 80px;
-    height: 80px;
-    margin: -40px 0 0 -40px;
-  }
-
-  .orbitItem :global(img) {
-    width: 80px !important;
-    height: 80px !important;
-  }
-
   .ringLarge {
     width: 500px;
     height: 500px;
@@ -480,14 +408,4 @@
     width: 360px;
   }
 
-  @keyframes orbit {
-    from {
-      transform: rotate(var(--orbit-start, 0deg)) translateX(130px) rotate(calc(-1 * var(--orbit-start, 0deg)));
-    }
-    to {
-      transform: rotate(calc(var(--orbit-start, 0deg) + 360deg))
-                 translateX(130px)
-                 rotate(calc(-1 * (var(--orbit-start, 0deg) + 360deg)));
-    }
-  }
 }

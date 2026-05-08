@@ -6,6 +6,13 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useAdminAuth } from '@/app/context/AdminAuthContext'
 import styles from './Login.module.css'
 
+const NAV_LINKS = [
+  { label: 'Menu',      href: '/#menu' },
+  { label: 'Our Story', href: '/#story' },
+  { label: 'Find Us',   href: '/#contact' },
+  { label: 'Track Order', href: '/#track' },
+]
+
 /** Inner component that reads search params — must be inside Suspense */
 function LoginForm() {
   const router       = useRouter()
@@ -53,54 +60,71 @@ function LoginForm() {
   if (isLoading) return null
 
   return (
-    <main className={styles.page}>
-      <div className={styles.card}>
-        <div className={styles.brand}>
-          <span className={styles.wordmark}>Junktion</span>
-          <span className={styles.badge}>Admin</span>
+    <div className={styles.page}>
+      {/* Top header */}
+      <header className={styles.header}>
+        <div className={styles.headerInner}>
+          <div className={styles.headerBrand}>
+            <span className={styles.wordmark}>Junktion</span>
+            <span className={styles.badge}>Admin</span>
+          </div>
+
+          <nav className={styles.headerNav} aria-label="Site navigation">
+            {NAV_LINKS.map(({ label, href }) => (
+              <Link key={label} href={href} className={styles.headerNavItem}>
+                {label}
+              </Link>
+            ))}
+          </nav>
+
+          <Link href="/" className={styles.backLink}>← Back to site</Link>
         </div>
+      </header>
 
-        <Link href="/" className={styles.backLink}>← Back to site</Link>
+      {/* Login card */}
+      <main className={styles.main}>
+        <div className={styles.card}>
+          <h1 className={styles.heading}>Sign in</h1>
+          <p className={styles.sub}>Sign in to access the Junktion admin dashboard.</p>
 
-        <h1 className={styles.heading}>Sign in</h1>
+          <form onSubmit={handleSubmit} className={styles.form} noValidate>
+            <label className={styles.label}>
+              Email
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className={styles.input}
+                placeholder="admin@junktion.ng"
+                autoComplete="email"
+                required
+                disabled={busy}
+              />
+            </label>
 
-        <form onSubmit={handleSubmit} className={styles.form} noValidate>
-          <label className={styles.label}>
-            Email
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className={styles.input}
-              placeholder="admin@junktion.ng"
-              autoComplete="email"
-              required
-              disabled={busy}
-            />
-          </label>
+            <label className={styles.label}>
+              Password
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className={styles.input}
+                placeholder="••••••••"
+                autoComplete="current-password"
+                required
+                disabled={busy}
+              />
+            </label>
 
-          <label className={styles.label}>
-            Password
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className={styles.input}
-              placeholder="••••••••"
-              autoComplete="current-password"
-              required
-              disabled={busy}
-            />
-          </label>
+            {error && <p className={styles.error}>{error}</p>}
 
-          {error && <p className={styles.error}>{error}</p>}
-
-          <button type="submit" disabled={busy} className={styles.btn}>
-            {busy ? 'Signing in…' : 'Sign in'}
-          </button>
-        </form>
-      </div>
-    </main>
+            <button type="submit" disabled={busy} className={styles.btn}>
+              {busy ? 'Signing in…' : 'Sign in'}
+            </button>
+          </form>
+        </div>
+      </main>
+    </div>
   )
 }
 

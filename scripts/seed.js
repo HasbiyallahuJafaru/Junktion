@@ -77,17 +77,21 @@ async function seed() {
     )
     console.log('✓ Payment account seeded.')
 
-    for (const item of MENU_ITEMS) {
-      await client.query(
-        `INSERT INTO menu_items (name, description, price, category, image_url, cloudinary_public_id, is_available, is_featured, display_order)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-         ON CONFLICT DO NOTHING`,
-        [item.name, item.description, item.price, item.category,
-         item.imageUrl, item.cloudinaryPublicId, true,
-         item.displayOrder <= 3, item.displayOrder]
-      )
+    const { rows: existing } = await client.query('SELECT COUNT(*) FROM menu_items')
+    if (parseInt(existing[0].count, 10) > 0) {
+      console.log(`✓ Menu items already seeded (${existing[0].count} items) — skipping.`)
+    } else {
+      for (const item of MENU_ITEMS) {
+        await client.query(
+          `INSERT INTO menu_items (name, description, price, category, image_url, cloudinary_public_id, is_available, is_featured, display_order)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+          [item.name, item.description, item.price, item.category,
+           item.imageUrl, item.cloudinaryPublicId, true,
+           item.displayOrder <= 3, item.displayOrder]
+        )
+      }
+      console.log('✓ Menu items seeded (18 items).')
     }
-    console.log('✓ Menu items seeded (18 items).')
     console.log('\nDone. Login: admin@junktion.ng / JunktionAdmin2025!')
     console.log('IMPORTANT: Change this password after first login!')
   } finally {

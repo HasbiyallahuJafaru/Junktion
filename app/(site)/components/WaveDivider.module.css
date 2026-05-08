@@ -1,0 +1,17 @@
+.wrap {
+  display: block;
+  line-height: 0;
+  overflow: hidden;
+  margin-bottom: -2px;
+  position: relative;
+}
+
+.svg {
+  display: block;
+  width: 100%;
+  height: 88px;
+}
+
+@media (max-width: 768px) {
+  .svg { height: 52px; }
+}
