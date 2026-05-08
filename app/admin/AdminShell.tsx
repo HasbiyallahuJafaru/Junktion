@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import {
@@ -68,7 +69,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
 
           <nav className={styles.nav}>
             {visibleNav.map(({ href, label, icon: Icon }) => (
-              <a
+              <Link
                 key={href}
                 href={href}
                 className={`${styles.navItem} ${pathname.startsWith(href) ? styles.navItemActive : ''}`}
@@ -76,7 +77,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
               >
                 <Icon size={17} strokeWidth={1.5} />
                 <span>{label}</span>
-              </a>
+              </Link>
             ))}
           </nav>
         </div>

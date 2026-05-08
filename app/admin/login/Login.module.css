@@ -115,3 +115,14 @@
 
 .btn:hover:not(:disabled) { background: #FF6A2F; }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.backLink {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: #3A3A3A;
+  text-decoration: none;
+  transition: color 180ms;
+  align-self: flex-start;
+}
+
+.backLink:hover { color: #6B6760; }

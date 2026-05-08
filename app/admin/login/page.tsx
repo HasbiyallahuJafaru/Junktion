@@ -1,6 +1,7 @@
 'use client'
 
 import { Suspense, useState, useEffect } from 'react'
+import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useAdminAuth } from '@/app/context/AdminAuthContext'
 import styles from './Login.module.css'
@@ -58,6 +59,8 @@ function LoginForm() {
           <span className={styles.wordmark}>Junktion</span>
           <span className={styles.badge}>Admin</span>
         </div>
+
+        <Link href="/" className={styles.backLink}>← Back to site</Link>
 
         <h1 className={styles.heading}>Sign in</h1>
 
