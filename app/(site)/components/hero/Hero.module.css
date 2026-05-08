@@ -9,7 +9,6 @@
 }
 
 /* ── Organic background shapes ── */
-
 .bgShapes {
   position: absolute;
   inset: 0;
@@ -17,7 +16,6 @@
   overflow: hidden;
 }
 
-/* Large ring — upper-right, 800px, mostly off-screen */
 .ringLarge {
   position: absolute;
   top: -220px;
@@ -26,12 +24,10 @@
   height: 780px;
   border-radius: 50%;
   border: 1.5px solid rgba(241, 90, 34, 0.22);
-  /* subtle inner glow on the stroke */
   box-shadow: inset 0 0 60px rgba(241, 90, 34, 0.06),
               0 0 80px rgba(241, 90, 34, 0.07);
 }
 
-/* Medium ring — left side, rotated so only a crescent is visible */
 .ringMid {
   position: absolute;
   top: 30%;
@@ -43,7 +39,6 @@
   box-shadow: 0 0 40px rgba(241, 90, 34, 0.05);
 }
 
-/* Filled blob — lower-centre, very low opacity orange fill, soft edges */
 .blobLow {
   position: absolute;
   bottom: -80px;
@@ -60,7 +55,6 @@
   filter: blur(24px);
 }
 
-/* Thin arc — upper-left corner, small radius */
 .arcThin {
   position: absolute;
   top: 12%;
@@ -69,11 +63,9 @@
   height: 220px;
   border-radius: 50%;
   border: 1px solid rgba(241, 90, 34, 0.12);
-  /* clip to show only the bottom-right quarter */
   clip-path: inset(50% 0 0 50%);
 }
 
-/* Dot A — small filled circle, upper-right area */
 .dotA {
   position: absolute;
   top: 18%;
@@ -85,7 +77,6 @@
   box-shadow: 0 0 18px rgba(241, 90, 34, 0.4);
 }
 
-/* Dot B — tiny, lower-left, offset from text */
 .dotB {
   position: absolute;
   bottom: 28%;
@@ -96,7 +87,7 @@
   background: rgba(241, 90, 34, 0.35);
 }
 
-/* ── White paint splashes (Nickelodeon-style soft blobs) ── */
+/* ── White paint splashes ── */
 .splashes {
   position: absolute;
   inset: 0;
@@ -104,7 +95,6 @@
   overflow: hidden;
 }
 
-/* Large off-centre blob — upper right */
 .splashA {
   position: absolute;
   top: 8%;
@@ -122,7 +112,6 @@
   transform: rotate(-14deg);
 }
 
-/* Medium splash — mid-left, organic tear-drop shape */
 .splashB {
   position: absolute;
   top: 42%;
@@ -140,7 +129,6 @@
   transform: rotate(22deg);
 }
 
-/* Small bright splat — centre-right, near orbit */
 .splashC {
   position: absolute;
   top: 30%;
@@ -158,7 +146,6 @@
   transform: rotate(-8deg);
 }
 
-/* Tiny fleck — lower centre, near headline */
 .splashD {
   position: absolute;
   bottom: 22%;
@@ -175,15 +162,63 @@
   transform: rotate(35deg);
 }
 
+/* ── Large decorative background text ── */
+.bgText {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -56%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  pointer-events: none;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.bgWord {
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 18vw, 18rem);
+  font-weight: 900;
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  color: rgba(241, 90, 34, 0.18);
+  text-transform: uppercase;
+  display: block;
+  animation: bgReveal 1.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 0.05s;
+}
+
+.bgWordAccent {
+  color: rgba(241, 90, 34, 0.22);
+  animation-delay: 0.15s;
+}
+
+.bgWordOutline {
+  -webkit-text-stroke: 2px rgba(241, 90, 34, 0.28);
+  color: transparent;
+}
+
+@keyframes bgReveal {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── Orbit wrap — centred, sits over the background text ── */
+.orbitWrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -60%;
+  z-index: 3;
+}
+
 /* ── Orbit ring — squished container creates ellipse ── */
 .orbitRing {
   transform: scale(1, 0.42);
   width: 380px;
   height: 380px;
-  position: absolute;
-  top: 50%;
-  left: 55%;
-  translate: -50% -50%;
 }
 
 .orbitItem {
@@ -197,7 +232,6 @@
   animation-delay: var(--orbit-delay, 0s);
 }
 
-/* Counter-squish keeps images circular */
 .orbitItem :global(img) {
   transform: scale(1, 2.381);
   border-radius: 50%;
@@ -221,20 +255,160 @@
 .orbitItem:nth-child(2) { --orbit-start: 120deg; }
 .orbitItem:nth-child(3) { --orbit-start: 240deg; }
 
-/* ── Orange radial glow centred on orbit ── */
+/* ── Orange radial glow ── */
 .glow {
   position: absolute;
-  top: 50%;
-  left: 55%;
+  top: 42%;
+  left: 50%;
   translate: -50% -50%;
   width: 700px;
   height: 700px;
-  background: radial-gradient(circle, rgba(241,90,34,0.13) 0%, transparent 68%);
+  background: radial-gradient(circle, rgba(241,90,34,0.15) 0%, transparent 68%);
   pointer-events: none;
+  z-index: 2;
 }
 
-/* ── Mount reveal animations (CSS-only, StrictMode-safe) ── */
+/* ── CTAs ── */
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #0D0D0D;
+  background: #F15A22;
+  border: none;
+  padding: 14px 28px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 180ms, transform 180ms;
+  text-decoration: none;
+}
 
+.btnPrimary:hover {
+  background: #FF6A2F;
+  transform: translateY(-1px);
+}
+
+.btnDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #0D0D0D;
+  flex-shrink: 0;
+}
+
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #F5F0EB;
+  background: transparent;
+  border: 1px solid rgba(245, 240, 235, 0.25);
+  padding: 14px 28px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 180ms, color 180ms, transform 180ms;
+}
+
+.btnGhost:hover {
+  border-color: #F15A22;
+  color: #F15A22;
+  transform: translateY(-1px);
+}
+
+/* ── Track order modal ── */
+.modalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modalBox {
+  position: relative;
+  background: #111111;
+  border: 1px solid #1F1F1F;
+  border-radius: 16px;
+  padding: 32px 28px;
+  width: 100%;
+  max-width: 380px;
+}
+
+.modalLabel {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #6B6760;
+  margin-bottom: 16px;
+}
+
+.modalForm {
+  display: flex;
+  gap: 8px;
+}
+
+.modalInput {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: #F5F0EB;
+  background: #0D0D0D;
+  border: 1px solid #2A2A2A;
+  border-radius: 8px;
+  padding: 12px 14px;
+  outline: none;
+  transition: border-color 180ms;
+}
+
+.modalInput::placeholder { color: #3A3A3A; }
+.modalInput:focus { border-color: #F15A22; }
+
+.modalBtn {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0D0D0D;
+  background: #F15A22;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 18px;
+  cursor: pointer;
+  transition: background 180ms;
+  white-space: nowrap;
+}
+
+.modalBtn:hover { background: #FF6A2F; }
+
+.modalClose {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  color: #3A3A3A;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  transition: color 180ms;
+}
+
+.modalClose:hover { color: #6B6760; }
+
+/* ── Mount reveal animations ── */
 @keyframes slideUp {
   from { transform: translateY(72px); opacity: 0; }
   to   { transform: translateY(0);    opacity: 1; }
@@ -245,32 +419,36 @@
   to   { transform: translateY(0);    opacity: 1; }
 }
 
-.headlineReveal { /* container — no clip needed */ }
+.headlineReveal { /* container */ }
 
 .revealLine {
   display: block;
   animation: slideUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
-  animation-delay: 0.2s;
+  animation-delay: 0.3s;
 }
 
-.revealLine2 {
-  animation-delay: 0.38s;
-}
+.revealLine2 { animation-delay: 0.48s; }
 
 .fadeUp {
   animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.fadeUpDelay1 { animation-delay: 0.62s; }
-.fadeUpDelay2 { animation-delay: 0.88s; }
+.fadeUpDelay1 { animation-delay: 0.72s; }
+.fadeUpDelay2 { animation-delay: 0.96s; }
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
+  .bgWord {
+    font-size: clamp(4.5rem, 22vw, 8rem);
+  }
+
+  .orbitWrap {
+    translate: -50% -65%;
+  }
+
   .orbitRing {
     width: 260px;
     height: 260px;
-    left: 50%;
-    top: 38%;
   }
 
   .orbitItem {
