@@ -15,7 +15,8 @@ export function generateUploadSignature(folder: string): {
   cloudName: string
 } {
   const timestamp = Math.round(Date.now() / 1000)
-  const params    = { timestamp, folder }
+  // format: 'jpg' converts HEIC/WebP/etc to JPEG at upload time so all browsers can display them
+  const params    = { timestamp, folder, format: 'jpg' }
   const signature = cloudinary.utils.api_sign_request(params, process.env.CLOUDINARY_API_SECRET!)
 
   return {

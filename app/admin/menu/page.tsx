@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { Plus, Pencil, Trash2, Star, Eye, EyeOff, Upload, X } from 'lucide-react'
 import { useAdminAuth } from '@/app/context/AdminAuthContext'
-import { formatPrice, cloudinaryAuto } from '@/app/lib/utils'
+import { formatPrice } from '@/app/lib/utils'
 import styles from './Menu.module.css'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -76,6 +76,7 @@ function ImageUploader({ token, imageUrl, onUploaded }: UploaderProps) {
       fd.append('timestamp', String(timestamp))
       fd.append('signature', signature)
       fd.append('folder', 'junktion/menu')
+      fd.append('format', 'jpg')
 
       const upRes = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
         method: 'POST',
@@ -95,7 +96,7 @@ function ImageUploader({ token, imageUrl, onUploaded }: UploaderProps) {
     <div className={styles.imageUpload}>
       {imageUrl && (
         <div className={styles.imagePreview}>
-          <Image src={cloudinaryAuto(imageUrl)} alt="Preview" fill className={styles.imagePreviewImg} />
+          <Image src={imageUrl} alt="Preview" fill className={styles.imagePreviewImg} />
         </div>
       )}
       <button
@@ -407,7 +408,7 @@ export default function MenuPage() {
             <div key={item.id} className={`${styles.card} ${!item.isAvailable ? styles.cardUnavailable : ''}`}>
               <div className={styles.imageWrap}>
                 {item.imageUrl && (
-                  <Image src={cloudinaryAuto(item.imageUrl)} alt={item.name} fill className={styles.cardImg} />
+                  <Image src={item.imageUrl} alt={item.name} fill className={styles.cardImg} />
                 )}
                 {item.isFeatured && <span className={styles.featuredBadge}>Featured</span>}
                 {!item.isAvailable && <span className={styles.unavailableBadge}>Hidden</span>}
