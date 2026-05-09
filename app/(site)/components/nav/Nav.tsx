@@ -63,49 +63,51 @@ export function Nav() {
             <span className={styles.wordmark}>Junktion</span>
           </a>
 
-          {/* Desktop links */}
-          <div className={styles.links}>
-            {navLinks.map((link) => (
-              <a key={link.label} href={link.href} className={styles.link}>
-                {link.label}
+          {/* Desktop links + actions grouped on the right */}
+          <div className={styles.right}>
+            <div className={styles.links}>
+              {navLinks.map((link) => (
+                <a key={link.label} href={link.href} className={styles.link}>
+                  {link.label}
+                </a>
+              ))}
+              <button onClick={() => setTrackOpen(true)} className={styles.link}>
+                Track Order
+              </button>
+              <a href="/admin/orders" className={styles.adminLink}>Admin</a>
+            </div>
+
+            {/* Right actions */}
+            <div className={styles.actions}>
+              {/* Cart */}
+              <button
+                onClick={openDrawer}
+                className={styles.cartBtn}
+                aria-label={`Cart${itemCount > 0 ? `, ${itemCount} items` : ''}`}
+              >
+                <ShoppingBag size={18} strokeWidth={1.5} />
+                {itemCount > 0 && (
+                  <span className={styles.cartBadge}>
+                    {itemCount > 9 ? '9+' : itemCount}
+                  </span>
+                )}
+              </button>
+
+              {/* Order Now CTA */}
+              <a href="#menu" className={styles.orderBtn}>
+                <span className={styles.orderDot} aria-hidden="true" />
+                Order Now
               </a>
-            ))}
-            <button onClick={() => setTrackOpen(true)} className={styles.link}>
-              Track Order
-            </button>
-            <a href="/admin/orders" className={styles.adminLink}>Admin</a>
-          </div>
 
-          {/* Right actions */}
-          <div className={styles.actions}>
-            {/* Cart */}
-            <button
-              onClick={openDrawer}
-              className={styles.cartBtn}
-              aria-label={`Cart${itemCount > 0 ? `, ${itemCount} items` : ''}`}
-            >
-              <ShoppingBag size={18} strokeWidth={1.5} />
-              {itemCount > 0 && (
-                <span className={styles.cartBadge}>
-                  {itemCount > 9 ? '9+' : itemCount}
-                </span>
-              )}
-            </button>
-
-            {/* Order Now CTA */}
-            <a href="#menu" className={styles.orderBtn}>
-              <span className={styles.orderDot} aria-hidden="true" />
-              Order Now
-            </a>
-
-            {/* Mobile hamburger */}
-            <button
-              className={styles.hamburger}
-              onClick={() => setMobileOpen(true)}
-              aria-label="Open menu"
-            >
-              <Menu size={20} strokeWidth={1.5} />
-            </button>
+              {/* Mobile hamburger */}
+              <button
+                className={styles.hamburger}
+                onClick={() => setMobileOpen(true)}
+                aria-label="Open menu"
+              >
+                <Menu size={20} strokeWidth={1.5} />
+              </button>
+            </div>
           </div>
         </div>
       </nav>

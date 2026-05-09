@@ -25,6 +25,13 @@
   margin: 0 auto;
 }
 
+/* Groups links + actions together on the right */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
 /* ── Brand / logo ── */
 .brand {
   display: flex;
