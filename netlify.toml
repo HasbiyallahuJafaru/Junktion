@@ -23,6 +23,6 @@
     X-Robots-Tag = "noindex, nofollow"
 
 [[headers]]
-  for = "/api/*"
+  for = "/api/admin/*"
   [headers.values]
     Cache-Control = "no-store"

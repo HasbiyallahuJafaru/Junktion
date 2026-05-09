@@ -46,9 +46,10 @@ export async function POST(req: NextRequest) {
     const [user] = await db.select().from(users)
       .where(eq(users.email, parsed.data.email)).limit(1)
 
-    const DUMMY = '$2b$12$invalidhashpaddingtomaketiminguniform000000000000000000'
+    const DUMMY = '$2b$12$LKAGx7Vi5jEoTuMKMxBgaObkrsMzFXa/G3EbMQb2Y1zfHODWQFU1q'
     const hash  = user?.passwordHash ?? DUMMY
-    const valid = await verifyPassword(parsed.data.password, hash)
+    let valid = false
+    try { valid = await verifyPassword(parsed.data.password, hash) } catch { valid = false }
 
     const ip = getClientIp(req)
 

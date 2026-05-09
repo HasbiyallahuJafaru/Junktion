@@ -36,12 +36,19 @@ function LoginForm() {
     setBusy(true)
 
     try {
-      const res  = await fetch('/api/auth/login', {
+      const res = await fetch('/api/auth/login', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ email, password }),
       })
-      const data = await res.json()
+
+      let data: { error?: string; accessToken?: string; user?: unknown }
+      try {
+        data = await res.json()
+      } catch {
+        setError(`Server error (HTTP ${res.status}) — check Netlify function logs.`)
+        return
+      }
 
       if (!res.ok) {
         setError(data.error ?? 'Login failed.')
@@ -50,8 +57,9 @@ function LoginForm() {
 
       login(data.accessToken, data.user)
       router.replace(params.get('from') ?? '/admin/orders')
-    } catch {
-      setError('Network error — check your connection.')
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err)
+      setError(`Request failed: ${msg}`)
     } finally {
       setBusy(false)
     }

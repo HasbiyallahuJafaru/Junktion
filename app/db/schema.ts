@@ -38,8 +38,8 @@ export const menuItems = pgTable('menu_items', {
   createdAt:          timestamp('created_at').notNull().defaultNow(),
   updatedAt:          timestamp('updated_at').notNull().defaultNow(),
 }, (t) => ({
-  categoryIdx:  index('menu_category_idx').on(t.category),
-  availableIdx: index('menu_available_idx').on(t.isAvailable),
+  categoryIdx:       index('menu_category_idx').on(t.category),
+  availableOrderIdx: index('menu_available_order_idx').on(t.isAvailable, t.displayOrder),
 }))
 
 export const paymentAccounts = pgTable('payment_accounts', {

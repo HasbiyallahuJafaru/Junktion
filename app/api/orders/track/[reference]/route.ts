@@ -50,15 +50,22 @@ export async function GET(
       paymentAccount = acct ?? null
     }
 
-    return NextResponse.json({
-      reference:       order.reference,
-      status:          order.status,
-      total:           order.total,
-      deliveryAddress: order.deliveryAddress,
-      createdAt:       order.createdAt,
-      updatedAt:       order.updatedAt,
-      paymentAccount,
-    })
+    return NextResponse.json(
+      {
+        reference:       order.reference,
+        status:          order.status,
+        total:           order.total,
+        deliveryAddress: order.deliveryAddress,
+        createdAt:       order.createdAt,
+        updatedAt:       order.updatedAt,
+        paymentAccount,
+      },
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=15, stale-while-revalidate=30',
+        },
+      }
+    )
   } catch {
     return NextResponse.json({ error: 'Failed to fetch order' }, { status: 500 })
   }
