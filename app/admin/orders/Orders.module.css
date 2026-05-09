@@ -246,6 +246,19 @@
   40%           { opacity: 1;   transform: scale(1); }
 }
 
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .colAddress,
+  .colItems,
+  .colTime { display: none; }
+
+  .filterBtn  { padding: 10px 14px; }
+  .refreshBtn { padding: 10px 14px; }
+  .toolbar    { gap: 8px; }
+  .summary    { gap: 8px; }
+  .summaryCard { min-width: 80px; padding: 12px 14px; }
+}
+
 /* ── Pagination ── */
 .pagination {
   display: flex;
@@ -256,8 +269,8 @@
 }
 
 .pageBtn {
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -332,8 +345,8 @@
 }
 
 .closeBtn {
-  width: 34px;
-  height: 34px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;

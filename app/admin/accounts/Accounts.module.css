@@ -6,6 +6,10 @@
   max-width: 720px;
 }
 
+@media (max-width: 640px) {
+  .page { max-width: 100%; }
+}
+
 .topRow {
   display: flex;
   align-items: center;
@@ -298,6 +302,12 @@
   transition: all 150ms;
 }
 .cancelBtn:hover { color: #F5F0EB; border-color: #333; }
+
+@media (max-width: 480px) {
+  .card { flex-direction: column; }
+  .cardActions { flex-direction: row; flex-wrap: wrap; }
+  .closeBtn { width: 44px; height: 44px; }
+}
 
 /* ── Delete modal ── */
 .modalBackdrop {

@@ -47,21 +47,34 @@ export function MenuSection() {
   const { addItem }           = useCart()
   useEffect(() => {
     const controller = new AbortController()
+    let retried = false
 
-    fetch('/api/menu', { signal: controller.signal })
-      .then((r) => r.json())
-      .then((data: { items?: PublicMenuItem[] }) => {
-        if (!data.items) { setError(true); return }
-        const seen = new Set<string>()
-        setItems(data.items.filter((i) => {
-          if (seen.has(i.id)) return false
-          seen.add(i.id)
-          return true
-        }))
-      })
-      .catch((err) => { if (err.name !== 'AbortError') setError(true) })
-      .finally(() => setLoading(false))
+    const load = () => {
+      fetch('/api/menu', { signal: controller.signal, cache: 'no-store' })
+        .then((r) => r.json())
+        .then((data: { items?: PublicMenuItem[] }) => {
+          if (!data.items) throw new Error('empty')
+          const seen = new Set<string>()
+          setItems(data.items.filter((i) => {
+            if (seen.has(i.id)) return false
+            seen.add(i.id)
+            return true
+          }))
+          setLoading(false)
+        })
+        .catch((err) => {
+          if (err.name === 'AbortError') return
+          if (!retried) {
+            retried = true
+            setTimeout(load, 2000)
+          } else {
+            setError(true)
+            setLoading(false)
+          }
+        })
+    }
 
+    load()
     return () => controller.abort()
   }, [])
 
@@ -128,12 +141,28 @@ function CategorySection({ group, groupIndex, onAdd }: {
   useEffect(() => {
     const el = ref.current
     if (!el) return
+
+    // Guarantee visibility after 3s regardless of observer
+    const fallback = setTimeout(() => setVis(true), 3000)
+
     let obs: IntersectionObserver | null = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVis(true); obs?.disconnect(); obs = null } },
-      { threshold: 0.05 }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          clearTimeout(fallback)
+          setVis(true)
+          obs?.disconnect()
+          obs = null
+        }
+      },
+      { threshold: 0, rootMargin: '0px 0px -40px 0px' }
     )
     obs.observe(el)
-    return () => { obs?.disconnect(); obs = null }
+
+    return () => {
+      clearTimeout(fallback)
+      obs?.disconnect()
+      obs = null
+    }
   }, [])
 
   return (

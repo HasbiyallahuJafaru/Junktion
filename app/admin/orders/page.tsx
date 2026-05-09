@@ -340,9 +340,9 @@ export default function OrdersPage() {
                 <th>Reference</th>
                 <th>Status</th>
                 <th>Total</th>
-                <th>Items</th>
-                <th>Address</th>
-                <th>Placed</th>
+                <th className={styles.colItems}>Items</th>
+                <th className={styles.colAddress}>Address</th>
+                <th className={styles.colTime}>Placed</th>
               </tr>
             </thead>
             <tbody className={styles.tbody}>
@@ -356,9 +356,9 @@ export default function OrdersPage() {
                     <td className={styles.refCell}>{o.reference}</td>
                     <td><StatusBadge status={o.status} /></td>
                     <td className={styles.totalCell}>{formatPrice(o.total)}</td>
-                    <td className={styles.itemsCell}>{fmtItems(o.items)}</td>
-                    <td className={styles.addrCell}>{o.deliveryAddress}</td>
-                    <td className={styles.timeCell}>{fmtDate(o.createdAt)}</td>
+                    <td className={`${styles.itemsCell} ${styles.colItems}`}>{fmtItems(o.items)}</td>
+                    <td className={`${styles.addrCell} ${styles.colAddress}`}>{o.deliveryAddress}</td>
+                    <td className={`${styles.timeCell} ${styles.colTime}`}>{fmtDate(o.createdAt)}</td>
                   </tr>
                 ))
               )}

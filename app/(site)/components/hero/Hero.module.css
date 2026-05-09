@@ -407,5 +407,18 @@
     left: 20%;
     width: 360px;
   }
+}
 
+@media (max-width: 480px) {
+  .bgWord { font-size: clamp(3.8rem, 20vw, 6rem); }
+
+  .splash1 { width: 130px; height: 130px; }
+  .splash2 { width: 90px;  height: 100px; }
+  .splash3 { width: 70px;  height: 78px;  }
+  .splash4 { width: 140px; height: 86px;  }
+  .splash5 { width: 56px;  height: 64px;  }
+  .splash6 { width: 80px;  height: 110px; }
+
+  .ringLarge { width: 340px; height: 340px; top: -100px; right: -120px; }
+  .ringMid   { width: 220px; height: 220px; left: -100px; }
 }

@@ -9,6 +9,10 @@
   .section { padding: 80px 24px; }
 }
 
+@media (max-width: 480px) {
+  .section { padding: 64px 20px; }
+}
+
 /* Diagonal orange accent line */
 .rule {
   position: absolute;
@@ -70,6 +74,10 @@
   top: 120px;
 }
 
+@media (max-width: 768px) {
+  .heading { position: static; }
+}
+
 .accent { color: #F15A22; }
 
 /* ── Right ── */
@@ -94,10 +102,12 @@
   margin-top: 16px;
   border-top: 1px solid #1A1A1A;
   padding-top: 36px;
+  flex-wrap: wrap;
 }
 
 .stat {
   flex: 1;
+  min-width: 120px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -110,6 +120,11 @@
   border-right: none;
   margin-right: 0;
   padding-right: 0;
+}
+
+@media (max-width: 480px) {
+  .stats { gap: 24px; padding-top: 28px; }
+  .stat  { flex: 0 0 calc(50% - 12px); min-width: 0; padding-right: 0; margin-right: 0; border-right: none; }
 }
 
 .statValue {

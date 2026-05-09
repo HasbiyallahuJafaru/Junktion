@@ -25,6 +25,10 @@
   margin: 0 auto;
 }
 
+@media (max-width: 480px) {
+  .inner { padding: 0 16px; }
+}
+
 /* Groups links + actions together on the right */
 .right {
   display: flex;
@@ -119,8 +123,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   background: none;
   border: none;
   color: #9A9590;
@@ -184,8 +188,8 @@
   display: none;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   background: none;
   border: none;
   color: #F5F0EB;
@@ -220,8 +224,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   background: none;
   border: none;
   color: #F5F0EB;

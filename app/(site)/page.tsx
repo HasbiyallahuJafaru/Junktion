@@ -1,5 +1,6 @@
-import dynamic             from 'next/dynamic'
-import { Nav }             from '@/app/(site)/components/nav/Nav'
+import dynamic                from 'next/dynamic'
+import { MenuErrorBoundary } from '@/app/(site)/components/menu/MenuErrorBoundary'
+import { Nav }               from '@/app/(site)/components/nav/Nav'
 import { Hero }            from '@/app/(site)/components/hero/Hero'
 import { Marquee }         from '@/app/(site)/components/marquee/Marquee'
 import { Story }           from '@/app/(site)/components/story/Story'
@@ -32,7 +33,9 @@ export default function Home() {
 
       {/* dark → light  (shimmer on) */}
       <WaveDivider bg="#0D0D0D" fill="#F5F0EB" shimmer />
-      <MenuSection />
+      <MenuErrorBoundary>
+        <MenuSection />
+      </MenuErrorBoundary>
 
       {/* light → dark  (plain curves) */}
       <WaveDivider bg="#F5F0EB" fill="#0D0D0D" />
