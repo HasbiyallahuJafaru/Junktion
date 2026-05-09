@@ -1,7 +1,153 @@
 /* ── Section ── */
 .section {
+  position: relative;
   background: #F5F0EB;
   padding: 96px 0 140px;
+  overflow: hidden;
+}
+
+/* ── Flames + embers ── */
+.smoke {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ─ Flame tongues: candle-flame shaped, orange→transparent, wavy rise ─ */
+.streak {
+  position: absolute;
+  border-radius: 50% 50% 30% 30% / 10% 10% 70% 70%;
+  will-change: transform, opacity;
+  transform-origin: bottom center;
+}
+
+/* gradient shorthand reused per flame — bright base, fades to transparent tip */
+.streakA { width: 16px; height: 110px; bottom: 2%;  left: 3%;  background: linear-gradient(to top, rgba(241,90,34,0.92), rgba(255,148,0,0.72) 40%, rgba(255,210,80,0.30) 72%, transparent); filter: blur(5px);   box-shadow: 0 0 18px 5px rgba(241,90,34,0.18); animation: flameWave   8s ease-in-out infinite; animation-delay:  0s;   }
+.streakB { width: 11px; height:  80px; bottom: 8%;  left: 9%;  background: linear-gradient(to top, rgba(255,110,0,0.88), rgba(255,160,0,0.65) 42%, rgba(255,215,90,0.25) 74%, transparent); filter: blur(4px);   box-shadow: 0 0 14px 4px rgba(255,110,0,0.16); animation: flameWaveR  6s ease-in-out infinite; animation-delay: -1.5s; }
+.streakC { width: 20px; height: 140px; bottom: 0%;  left: 15%; background: linear-gradient(to top, rgba(241,90,34,0.95), rgba(255,140,0,0.75) 38%, rgba(255,200,60,0.28) 70%, transparent); filter: blur(6px);   box-shadow: 0 0 22px 6px rgba(241,90,34,0.20); animation: flameWave   10s ease-in-out infinite; animation-delay: -3s;   }
+.streakD { width: 13px; height:  90px; bottom: 12%; left: 21%; background: linear-gradient(to top, rgba(255,100,0,0.85), rgba(255,155,0,0.62) 44%, rgba(255,210,70,0.22) 75%, transparent); filter: blur(4.5px); box-shadow: 0 0 14px 4px rgba(255,100,0,0.15); animation: flameWaveR  7s ease-in-out infinite; animation-delay: -5s;   }
+.streakE { width: 17px; height: 120px; bottom: 4%;  left: 27%; background: linear-gradient(to top, rgba(241,90,34,0.90), rgba(255,145,0,0.70) 40%, rgba(255,205,65,0.26) 72%, transparent); filter: blur(5.5px); box-shadow: 0 0 20px 6px rgba(241,90,34,0.17); animation: flameWave   9s ease-in-out infinite; animation-delay: -2s;   }
+.streakF { width: 10px; height:  70px; bottom: 16%; left: 33%; background: linear-gradient(to top, rgba(255,120,0,0.82), rgba(255,165,0,0.60) 45%, rgba(255,215,80,0.20) 76%, transparent); filter: blur(4px);   box-shadow: 0 0 12px 3px rgba(255,120,0,0.14); animation: flameWaveR  5s ease-in-out infinite; animation-delay: -7s;   }
+.streakG { width: 22px; height: 155px; bottom: 0%;  left: 39%; background: linear-gradient(to top, rgba(241,90,34,0.96), rgba(255,135,0,0.78) 36%, rgba(255,195,55,0.32) 68%, transparent); filter: blur(7px);   box-shadow: 0 0 26px 8px rgba(241,90,34,0.22); animation: flameWave   11s ease-in-out infinite; animation-delay: -4s;   }
+.streakH { width: 14px; height: 100px; bottom: 9%;  left: 46%; background: linear-gradient(to top, rgba(255,105,0,0.87), rgba(255,158,0,0.66) 42%, rgba(255,212,72,0.24) 74%, transparent); filter: blur(4.5px); box-shadow: 0 0 16px 5px rgba(255,105,0,0.16); animation: flameWaveR  8s ease-in-out infinite; animation-delay: -0.5s; }
+.streakI { width: 18px; height: 130px; bottom: 3%;  left: 52%; background: linear-gradient(to top, rgba(241,90,34,0.93), rgba(255,142,0,0.73) 39%, rgba(255,202,62,0.28) 71%, transparent); filter: blur(6px);   box-shadow: 0 0 20px 6px rgba(241,90,34,0.19); animation: flameWave   9.5s ease-in-out infinite; animation-delay: -6s;   }
+.streakJ { width: 12px; height:  85px; bottom: 18%; left: 58%; background: linear-gradient(to top, rgba(255,115,0,0.83), rgba(255,163,0,0.61) 44%, rgba(255,213,76,0.21) 75%, transparent); filter: blur(4px);   box-shadow: 0 0 13px 4px rgba(255,115,0,0.14); animation: flameWaveR  6.5s ease-in-out infinite; animation-delay: -9s;   }
+.streakK { width: 19px; height: 145px; bottom: 1%;  left: 63%; background: linear-gradient(to top, rgba(241,90,34,0.94), rgba(255,138,0,0.76) 37%, rgba(255,198,58,0.30) 69%, transparent); filter: blur(6.5px); box-shadow: 0 0 24px 7px rgba(241,90,34,0.21); animation: flameWave   10.5s ease-in-out infinite; animation-delay: -11s;  }
+.streakL { width: 11px; height:  75px; bottom: 13%; left: 70%; background: linear-gradient(to top, rgba(255,108,0,0.84), rgba(255,160,0,0.62) 43%, rgba(255,214,78,0.22) 75%, transparent); filter: blur(4px);   box-shadow: 0 0 12px 3px rgba(255,108,0,0.14); animation: flameWaveR  7.5s ease-in-out infinite; animation-delay: -2.5s; }
+.streakM { width: 16px; height: 115px; bottom: 5%;  left: 76%; background: linear-gradient(to top, rgba(241,90,34,0.91), rgba(255,146,0,0.71) 40%, rgba(255,208,68,0.27) 72%, transparent); filter: blur(5px);   box-shadow: 0 0 18px 5px rgba(241,90,34,0.18); animation: flameWave   8.5s ease-in-out infinite; animation-delay: -4.5s; }
+.streakN { width: 13px; height:  88px; bottom: 10%; left: 82%; background: linear-gradient(to top, rgba(255,112,0,0.86), rgba(255,162,0,0.64) 43%, rgba(255,213,75,0.23) 74%, transparent); filter: blur(4.5px); box-shadow: 0 0 15px 4px rgba(255,112,0,0.15); animation: flameWaveR  6s ease-in-out infinite; animation-delay: -8s;   }
+.streakO { width: 21px; height: 150px; bottom: 0%;  left: 87%; background: linear-gradient(to top, rgba(241,90,34,0.95), rgba(255,136,0,0.77) 36%, rgba(255,196,56,0.31) 68%, transparent); filter: blur(7px);   box-shadow: 0 0 25px 8px rgba(241,90,34,0.22); animation: flameWave   12s ease-in-out infinite; animation-delay: -6.5s; }
+.streakP { width: 10px; height:  68px; bottom: 20%; left: 93%; background: linear-gradient(to top, rgba(255,118,0,0.80), rgba(255,166,0,0.58) 45%, rgba(255,216,80,0.20) 76%, transparent); filter: blur(3.5px); box-shadow: 0 0 11px 3px rgba(255,118,0,0.13); animation: flameWaveR  5.5s ease-in-out infinite; animation-delay: -1s;   }
+
+/* Candle-flame wavy rise — sinusoidal X while Y travels upward */
+@keyframes flameWave {
+  0%   { transform: translateY(0px)    translateX(0px)   scaleX(1);    opacity: 0; }
+  5%   { opacity: 1; }
+  15%  { transform: translateY(-55px)  translateX(14px)  scaleX(0.88); opacity: 1; }
+  28%  { transform: translateY(-115px) translateX(2px)   scaleX(1.08); opacity: 0.92; }
+  42%  { transform: translateY(-180px) translateX(18px)  scaleX(0.84); opacity: 0.80; }
+  56%  { transform: translateY(-250px) translateX(-2px)  scaleX(1.06); opacity: 0.60; }
+  70%  { transform: translateY(-320px) translateX(16px)  scaleX(0.86); opacity: 0.38; }
+  85%  { transform: translateY(-395px) translateX(4px)   scaleX(1.04); opacity: 0.16; }
+  100% { transform: translateY(-460px) translateX(12px)  scaleX(0.90); opacity: 0; }
+}
+
+@keyframes flameWaveR {
+  0%   { transform: translateY(0px)    translateX(0px)   scaleX(1);    opacity: 0; }
+  5%   { opacity: 1; }
+  15%  { transform: translateY(-50px)  translateX(-16px) scaleX(0.86); opacity: 1; }
+  28%  { transform: translateY(-110px) translateX(-2px)  scaleX(1.10); opacity: 0.90; }
+  42%  { transform: translateY(-175px) translateX(-20px) scaleX(0.82); opacity: 0.78; }
+  56%  { transform: translateY(-245px) translateX(-1px)  scaleX(1.08); opacity: 0.58; }
+  70%  { transform: translateY(-315px) translateX(-18px) scaleX(0.85); opacity: 0.36; }
+  85%  { transform: translateY(-388px) translateX(-3px)  scaleX(1.05); opacity: 0.14; }
+  100% { transform: translateY(-455px) translateX(-14px) scaleX(0.88); opacity: 0; }
+}
+
+/* ─ Embers: glowing sparks that float upward ─ */
+.ember {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+}
+
+.ember1  { width: 4px; height: 4px; left:  5%; bottom: 10%; background: #F15A22; box-shadow: 0 0 8px 4px rgba(241,90,34,0.65),  0 0 18px 7px rgba(241,90,34,0.22);  animation: emberFloat    7s ease-in infinite; animation-delay:  0s;    }
+.ember2  { width: 3px; height: 3px; left: 12%; bottom: 25%; background: #FF8C42; box-shadow: 0 0 6px 3px rgba(255,140,66,0.62),  0 0 13px 5px rgba(255,140,66,0.20);  animation: emberFloatR   9s ease-in infinite; animation-delay: -2s;    }
+.ember3  { width: 5px; height: 5px; left: 19%; bottom:  8%; background: #F15A22; box-shadow: 0 0 10px 4px rgba(241,90,34,0.58), 0 0 20px 8px rgba(241,90,34,0.18);  animation: emberFloat    8s ease-in infinite; animation-delay: -5s;    }
+.ember4  { width: 3px; height: 3px; left: 26%; bottom: 18%; background: #FFB347; box-shadow: 0 0 7px 3px rgba(255,179,71,0.68),  0 0 14px 5px rgba(255,179,71,0.22);  animation: emberFloatR   6s ease-in infinite; animation-delay: -1s;    }
+.ember5  { width: 4px; height: 4px; left: 33%; bottom: 30%; background: #F15A22; box-shadow: 0 0 8px 4px rgba(241,90,34,0.60),  0 0 16px 6px rgba(241,90,34,0.20);  animation: emberFloat   10s ease-in infinite; animation-delay: -4s;    }
+.ember6  { width: 3px; height: 3px; left: 40%; bottom: 12%; background: #FF8C42; box-shadow: 0 0 6px 3px rgba(255,140,66,0.62),  0 0 12px 5px rgba(255,140,66,0.20);  animation: emberFloatR   7.5s ease-in infinite; animation-delay: -6.5s; }
+.ember7  { width: 5px; height: 5px; left: 47%; bottom: 35%; background: #FFB347; box-shadow: 0 0 10px 4px rgba(255,179,71,0.65), 0 0 20px 7px rgba(255,179,71,0.20); animation: emberFloat   11s ease-in infinite; animation-delay: -3s;    }
+.ember8  { width: 3px; height: 3px; left: 54%; bottom: 20%; background: #F15A22; box-shadow: 0 0 7px 3px rgba(241,90,34,0.60),  0 0 14px 5px rgba(241,90,34,0.18);  animation: emberFloatR   8.5s ease-in infinite; animation-delay: -7s;   }
+.ember9  { width: 4px; height: 4px; left: 61%; bottom:  7%; background: #FF8C42; box-shadow: 0 0 8px 4px rgba(255,140,66,0.58),  0 0 16px 6px rgba(255,140,66,0.18);  animation: emberFloat    9.5s ease-in infinite; animation-delay: -0.5s; }
+.ember10 { width: 3px; height: 3px; left: 68%; bottom: 28%; background: #F15A22; box-shadow: 0 0 7px 3px rgba(241,90,34,0.65),  0 0 13px 5px rgba(241,90,34,0.20);  animation: emberFloatR   6.5s ease-in infinite; animation-delay: -8s;   }
+.ember11 { width: 5px; height: 5px; left: 74%; bottom: 14%; background: #FFB347; box-shadow: 0 0 10px 4px rgba(255,179,71,0.62), 0 0 20px 7px rgba(255,179,71,0.18); animation: emberFloat    8s ease-in infinite; animation-delay: -1.5s; }
+.ember12 { width: 3px; height: 3px; left: 80%; bottom: 38%; background: #FF8C42; box-shadow: 0 0 6px 3px rgba(255,140,66,0.65),  0 0 12px 5px rgba(255,140,66,0.20);  animation: emberFloatR  10.5s ease-in infinite; animation-delay: -5.5s; }
+.ember13 { width: 4px; height: 4px; left: 86%; bottom: 10%; background: #F15A22; box-shadow: 0 0 8px 4px rgba(241,90,34,0.60),  0 0 16px 6px rgba(241,90,34,0.18);  animation: emberFloat    7s ease-in infinite; animation-delay: -2.5s; }
+.ember14 { width: 3px; height: 3px; left: 92%; bottom: 22%; background: #FFB347; box-shadow: 0 0 7px 3px rgba(255,179,71,0.68),  0 0 13px 5px rgba(255,179,71,0.20);  animation: emberFloatR   9s ease-in infinite; animation-delay: -9s;   }
+.ember15 { width: 4px; height: 4px; left: 22%; bottom: 42%; background: #FF8C42; box-shadow: 0 0 8px 4px rgba(255,140,66,0.58),  0 0 16px 6px rgba(255,140,66,0.18);  animation: emberFloat    6s ease-in infinite; animation-delay: -3.5s; }
+.ember16 { width: 3px; height: 3px; left: 36%; bottom: 48%; background: #F15A22; box-shadow: 0 0 6px 3px rgba(241,90,34,0.62),  0 0 12px 5px rgba(241,90,34,0.20);  animation: emberFloatR  11.5s ease-in infinite; animation-delay: -6s;  }
+.ember17 { width: 5px; height: 5px; left: 57%; bottom: 44%; background: #FFB347; box-shadow: 0 0 10px 4px rgba(255,179,71,0.60), 0 0 20px 7px rgba(255,179,71,0.18); animation: emberFloat    8s ease-in infinite; animation-delay: -10s;  }
+.ember18 { width: 3px; height: 3px; left: 71%; bottom: 50%; background: #FF8C42; box-shadow: 0 0 6px 3px rgba(255,140,66,0.64),  0 0 12px 5px rgba(255,140,66,0.20);  animation: emberFloatR   7s ease-in infinite; animation-delay: -4.5s; }
+.ember19 { width: 4px; height: 4px; left: 44%; bottom:  5%; background: #F15A22; box-shadow: 0 0 8px 4px rgba(241,90,34,0.66),  0 0 16px 6px rgba(241,90,34,0.20);  animation: emberFloat    9s ease-in infinite; animation-delay: -7.5s; }
+.ember20 { width: 3px; height: 3px; left: 96%; bottom: 32%; background: #FFB347; box-shadow: 0 0 7px 3px rgba(255,179,71,0.62),  0 0 13px 5px rgba(255,179,71,0.18);  animation: emberFloatR  10s ease-in infinite; animation-delay: -12s;  }
+.ember21 { width: 4px; height: 4px; left:  7%; bottom: 55%; background: #F15A22; box-shadow: 0 0 8px 4px rgba(241,90,34,0.62),  0 0 16px 6px rgba(241,90,34,0.20);  animation: emberFloat    7s ease-in infinite; animation-delay: -2.2s; }
+.ember22 { width: 3px; height: 3px; left: 14%; bottom: 62%; background: #FF8C42; box-shadow: 0 0 6px 3px rgba(255,140,66,0.60),  0 0 12px 5px rgba(255,140,66,0.18);  animation: emberFloatR   9.5s ease-in infinite; animation-delay: -5.8s; }
+.ember23 { width: 5px; height: 5px; left: 20%; bottom: 70%; background: #FFB347; box-shadow: 0 0 10px 4px rgba(255,179,71,0.65), 0 0 20px 7px rgba(255,179,71,0.20); animation: emberFloat   11s ease-in infinite; animation-delay: -0.8s; }
+.ember24 { width: 3px; height: 3px; left: 29%; bottom: 58%; background: #F15A22; box-shadow: 0 0 7px 3px rgba(241,90,34,0.60),  0 0 13px 5px rgba(241,90,34,0.18);  animation: emberFloatR   6s ease-in infinite; animation-delay: -13s;  }
+.ember25 { width: 4px; height: 4px; left: 38%; bottom: 65%; background: #FF8C42; box-shadow: 0 0 8px 4px rgba(255,140,66,0.62),  0 0 16px 6px rgba(255,140,66,0.20);  animation: emberFloat    8.5s ease-in infinite; animation-delay: -4.2s; }
+.ember26 { width: 3px; height: 3px; left: 48%; bottom: 72%; background: #FFB347; box-shadow: 0 0 6px 3px rgba(255,179,71,0.66),  0 0 12px 5px rgba(255,179,71,0.20);  animation: emberFloatR  10s ease-in infinite; animation-delay: -7.8s; }
+.ember27 { width: 4px; height: 4px; left: 55%; bottom: 60%; background: #F15A22; box-shadow: 0 0 8px 4px rgba(241,90,34,0.64),  0 0 16px 6px rgba(241,90,34,0.20);  animation: emberFloat    7.5s ease-in infinite; animation-delay: -1.4s; }
+.ember28 { width: 3px; height: 3px; left: 63%; bottom: 68%; background: #FF8C42; box-shadow: 0 0 6px 3px rgba(255,140,66,0.60),  0 0 12px 5px rgba(255,140,66,0.18);  animation: emberFloatR   9s ease-in infinite; animation-delay: -11s;  }
+.ember29 { width: 5px; height: 5px; left: 70%; bottom: 75%; background: #FFB347; box-shadow: 0 0 10px 4px rgba(255,179,71,0.62), 0 0 20px 7px rgba(255,179,71,0.18); animation: emberFloat   12s ease-in infinite; animation-delay: -3.6s; }
+.ember30 { width: 3px; height: 3px; left: 78%; bottom: 56%; background: #F15A22; box-shadow: 0 0 7px 3px rgba(241,90,34,0.62),  0 0 13px 5px rgba(241,90,34,0.18);  animation: emberFloatR   6.5s ease-in infinite; animation-delay: -9.2s; }
+.ember31 { width: 4px; height: 4px; left: 85%; bottom: 64%; background: #FF8C42; box-shadow: 0 0 8px 4px rgba(255,140,66,0.60),  0 0 16px 6px rgba(255,140,66,0.18);  animation: emberFloat    8s ease-in infinite; animation-delay: -14s;  }
+.ember32 { width: 3px; height: 3px; left: 91%; bottom: 48%; background: #FFB347; box-shadow: 0 0 6px 3px rgba(255,179,71,0.65),  0 0 12px 5px rgba(255,179,71,0.20);  animation: emberFloatR  11s ease-in infinite; animation-delay: -2.8s; }
+.ember33 { width: 4px; height: 4px; left:  3%; bottom: 78%; background: #F15A22; box-shadow: 0 0 8px 4px rgba(241,90,34,0.60),  0 0 16px 6px rgba(241,90,34,0.18);  animation: emberFloat    9.5s ease-in infinite; animation-delay: -6.4s; }
+.ember34 { width: 3px; height: 3px; left: 16%; bottom: 82%; background: #FF8C42; box-shadow: 0 0 6px 3px rgba(255,140,66,0.62),  0 0 12px 5px rgba(255,140,66,0.20);  animation: emberFloatR   7s ease-in infinite; animation-delay: -0.3s; }
+.ember35 { width: 5px; height: 5px; left: 25%; bottom: 88%; background: #FFB347; box-shadow: 0 0 10px 4px rgba(255,179,71,0.64), 0 0 20px 7px rgba(255,179,71,0.20); animation: emberFloat   10.5s ease-in infinite; animation-delay: -8.6s; }
+.ember36 { width: 3px; height: 3px; left: 35%; bottom: 80%; background: #F15A22; box-shadow: 0 0 7px 3px rgba(241,90,34,0.62),  0 0 13px 5px rgba(241,90,34,0.20);  animation: emberFloatR   8s ease-in infinite; animation-delay: -5.1s; }
+.ember37 { width: 4px; height: 4px; left: 43%; bottom: 85%; background: #FF8C42; box-shadow: 0 0 8px 4px rgba(255,140,66,0.60),  0 0 16px 6px rgba(255,140,66,0.18);  animation: emberFloat    6.5s ease-in infinite; animation-delay: -12.5s; }
+.ember38 { width: 3px; height: 3px; left: 52%; bottom: 78%; background: #FFB347; box-shadow: 0 0 6px 3px rgba(255,179,71,0.64),  0 0 12px 5px rgba(255,179,71,0.20);  animation: emberFloatR  11.5s ease-in infinite; animation-delay: -1.9s; }
+.ember39 { width: 4px; height: 4px; left: 60%; bottom: 84%; background: #F15A22; box-shadow: 0 0 8px 4px rgba(241,90,34,0.62),  0 0 16px 6px rgba(241,90,34,0.20);  animation: emberFloat    9s ease-in infinite; animation-delay: -10s;  }
+.ember40 { width: 3px; height: 3px; left: 67%; bottom: 76%; background: #FF8C42; box-shadow: 0 0 6px 3px rgba(255,140,66,0.62),  0 0 12px 5px rgba(255,140,66,0.18);  animation: emberFloatR   7.5s ease-in infinite; animation-delay: -3s;   }
+.ember41 { width: 5px; height: 5px; left: 74%; bottom: 82%; background: #FFB347; box-shadow: 0 0 10px 4px rgba(255,179,71,0.62), 0 0 20px 7px rgba(255,179,71,0.18); animation: emberFloat   13s ease-in infinite; animation-delay: -7.2s; }
+.ember42 { width: 3px; height: 3px; left: 82%; bottom: 70%; background: #F15A22; box-shadow: 0 0 7px 3px rgba(241,90,34,0.64),  0 0 13px 5px rgba(241,90,34,0.20);  animation: emberFloatR   8.5s ease-in infinite; animation-delay: -4.7s; }
+.ember43 { width: 4px; height: 4px; left: 89%; bottom: 77%; background: #FF8C42; box-shadow: 0 0 8px 4px rgba(255,140,66,0.60),  0 0 16px 6px rgba(255,140,66,0.18);  animation: emberFloat    6s ease-in infinite; animation-delay: -15s;  }
+.ember44 { width: 3px; height: 3px; left: 95%; bottom: 60%; background: #FFB347; box-shadow: 0 0 6px 3px rgba(255,179,71,0.66),  0 0 12px 5px rgba(255,179,71,0.20);  animation: emberFloatR  10s ease-in infinite; animation-delay: -2s;   }
+.ember45 { width: 4px; height: 4px; left: 10%; bottom: 90%; background: #F15A22; box-shadow: 0 0 8px 4px rgba(241,90,34,0.60),  0 0 16px 6px rgba(241,90,34,0.18);  animation: emberFloat    9s ease-in infinite; animation-delay: -6s;   }
+.ember46 { width: 3px; height: 3px; left: 30%; bottom: 93%; background: #FF8C42; box-shadow: 0 0 6px 3px rgba(255,140,66,0.62),  0 0 12px 5px rgba(255,140,66,0.20);  animation: emberFloatR  12s ease-in infinite; animation-delay: -9.5s; }
+.ember47 { width: 5px; height: 5px; left: 50%; bottom: 90%; background: #FFB347; box-shadow: 0 0 10px 4px rgba(255,179,71,0.64), 0 0 20px 7px rgba(255,179,71,0.18); animation: emberFloat    8s ease-in infinite; animation-delay: -3.3s; }
+.ember48 { width: 3px; height: 3px; left: 66%; bottom: 92%; background: #F15A22; box-shadow: 0 0 7px 3px rgba(241,90,34,0.62),  0 0 13px 5px rgba(241,90,34,0.20);  animation: emberFloatR   7s ease-in infinite; animation-delay: -11.5s; }
+.ember49 { width: 4px; height: 4px; left: 80%; bottom: 88%; background: #FF8C42; box-shadow: 0 0 8px 4px rgba(255,140,66,0.60),  0 0 16px 6px rgba(255,140,66,0.18);  animation: emberFloat   10s ease-in infinite; animation-delay: -1.6s; }
+.ember50 { width: 3px; height: 3px; left: 93%; bottom: 85%; background: #FFB347; box-shadow: 0 0 6px 3px rgba(255,179,71,0.65),  0 0 12px 5px rgba(255,179,71,0.18);  animation: emberFloatR  11s ease-in infinite; animation-delay: -8s;   }
+
+@keyframes emberFloat {
+  0%   { transform: translateY(0px)    translateX(0px);   opacity: 0; }
+  8%   { opacity: 1; }
+  35%  { transform: translateY(-140px) translateX(14px);  opacity: 0.85; }
+  65%  { transform: translateY(-290px) translateX(-9px);  opacity: 0.48; }
+  88%  { transform: translateY(-400px) translateX(8px);   opacity: 0.10; }
+  100% { transform: translateY(-460px) translateX(5px);   opacity: 0; }
+}
+
+@keyframes emberFloatR {
+  0%   { transform: translateY(0px)    translateX(0px);   opacity: 0; }
+  8%   { opacity: 1; }
+  35%  { transform: translateY(-130px) translateX(-16px); opacity: 0.88; }
+  65%  { transform: translateY(-275px) translateX(11px);  opacity: 0.50; }
+  88%  { transform: translateY(-385px) translateX(-7px);  opacity: 0.12; }
+  100% { transform: translateY(-445px) translateX(3px);   opacity: 0; }
+}
+
+/* ── Content sits above smoke ── */
+.header,
+.feed,
+.loadingState,
+.errorMsg {
+  position: relative;
+  z-index: 1;
 }
 
 /* ── Header ── */

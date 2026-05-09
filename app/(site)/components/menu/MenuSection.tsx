@@ -41,10 +41,13 @@ function groupByCategory(items: PublicMenuItem[]) {
 }
 
 export function MenuSection() {
-  const [items, setItems]     = useState<PublicMenuItem[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError]     = useState(false)
-  const { addItem }           = useCart()
+  const [items, setItems]       = useState<PublicMenuItem[]>([])
+  const [loading, setLoading]   = useState(true)
+  const [error, setError]       = useState(false)
+  const [mounted, setMounted]   = useState(false)
+  const { addItem }             = useCart()
+
+  useEffect(() => { setMounted(true) }, [])
   useEffect(() => {
     const controller = new AbortController()
     let retried = false
@@ -83,6 +86,80 @@ export function MenuSection() {
 
   return (
     <section id="menu" className={styles.section}>
+      {/* ── Smoke streaks + embers (client-only to avoid hydration mismatch) ── */}
+      {mounted && (
+        <div className={styles.smoke} aria-hidden="true">
+          {/* 16 candle flames */}
+          <div className={`${styles.streak} ${styles.streakA}`} />
+          <div className={`${styles.streak} ${styles.streakB}`} />
+          <div className={`${styles.streak} ${styles.streakC}`} />
+          <div className={`${styles.streak} ${styles.streakD}`} />
+          <div className={`${styles.streak} ${styles.streakE}`} />
+          <div className={`${styles.streak} ${styles.streakF}`} />
+          <div className={`${styles.streak} ${styles.streakG}`} />
+          <div className={`${styles.streak} ${styles.streakH}`} />
+          <div className={`${styles.streak} ${styles.streakI}`} />
+          <div className={`${styles.streak} ${styles.streakJ}`} />
+          <div className={`${styles.streak} ${styles.streakK}`} />
+          <div className={`${styles.streak} ${styles.streakL}`} />
+          <div className={`${styles.streak} ${styles.streakM}`} />
+          <div className={`${styles.streak} ${styles.streakN}`} />
+          <div className={`${styles.streak} ${styles.streakO}`} />
+          <div className={`${styles.streak} ${styles.streakP}`} />
+          {/* 20 embers */}
+          <div className={`${styles.ember} ${styles.ember1}`} />
+          <div className={`${styles.ember} ${styles.ember2}`} />
+          <div className={`${styles.ember} ${styles.ember3}`} />
+          <div className={`${styles.ember} ${styles.ember4}`} />
+          <div className={`${styles.ember} ${styles.ember5}`} />
+          <div className={`${styles.ember} ${styles.ember6}`} />
+          <div className={`${styles.ember} ${styles.ember7}`} />
+          <div className={`${styles.ember} ${styles.ember8}`} />
+          <div className={`${styles.ember} ${styles.ember9}`} />
+          <div className={`${styles.ember} ${styles.ember10}`} />
+          <div className={`${styles.ember} ${styles.ember11}`} />
+          <div className={`${styles.ember} ${styles.ember12}`} />
+          <div className={`${styles.ember} ${styles.ember13}`} />
+          <div className={`${styles.ember} ${styles.ember14}`} />
+          <div className={`${styles.ember} ${styles.ember15}`} />
+          <div className={`${styles.ember} ${styles.ember16}`} />
+          <div className={`${styles.ember} ${styles.ember17}`} />
+          <div className={`${styles.ember} ${styles.ember18}`} />
+          <div className={`${styles.ember} ${styles.ember19}`} />
+          <div className={`${styles.ember} ${styles.ember20}`} />
+          <div className={`${styles.ember} ${styles.ember21}`} />
+          <div className={`${styles.ember} ${styles.ember22}`} />
+          <div className={`${styles.ember} ${styles.ember23}`} />
+          <div className={`${styles.ember} ${styles.ember24}`} />
+          <div className={`${styles.ember} ${styles.ember25}`} />
+          <div className={`${styles.ember} ${styles.ember26}`} />
+          <div className={`${styles.ember} ${styles.ember27}`} />
+          <div className={`${styles.ember} ${styles.ember28}`} />
+          <div className={`${styles.ember} ${styles.ember29}`} />
+          <div className={`${styles.ember} ${styles.ember30}`} />
+          <div className={`${styles.ember} ${styles.ember31}`} />
+          <div className={`${styles.ember} ${styles.ember32}`} />
+          <div className={`${styles.ember} ${styles.ember33}`} />
+          <div className={`${styles.ember} ${styles.ember34}`} />
+          <div className={`${styles.ember} ${styles.ember35}`} />
+          <div className={`${styles.ember} ${styles.ember36}`} />
+          <div className={`${styles.ember} ${styles.ember37}`} />
+          <div className={`${styles.ember} ${styles.ember38}`} />
+          <div className={`${styles.ember} ${styles.ember39}`} />
+          <div className={`${styles.ember} ${styles.ember40}`} />
+          <div className={`${styles.ember} ${styles.ember41}`} />
+          <div className={`${styles.ember} ${styles.ember42}`} />
+          <div className={`${styles.ember} ${styles.ember43}`} />
+          <div className={`${styles.ember} ${styles.ember44}`} />
+          <div className={`${styles.ember} ${styles.ember45}`} />
+          <div className={`${styles.ember} ${styles.ember46}`} />
+          <div className={`${styles.ember} ${styles.ember47}`} />
+          <div className={`${styles.ember} ${styles.ember48}`} />
+          <div className={`${styles.ember} ${styles.ember49}`} />
+          <div className={`${styles.ember} ${styles.ember50}`} />
+        </div>
+      )}
+
       {/* ── Header ── */}
       <div className={styles.header}>
         <div className={styles.headerLeft}>
