@@ -26,3 +26,8 @@
   for = "/api/admin/*"
   [headers.values]
     Cache-Control = "no-store"
+
+[[headers]]
+  for = "/_next/image*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
