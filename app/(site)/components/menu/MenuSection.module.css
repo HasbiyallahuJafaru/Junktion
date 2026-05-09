@@ -78,6 +78,15 @@
   transform: translateY(0);
 }
 
+/* On mobile, skip the fade-in — show content immediately */
+@media (max-width: 768px) {
+  .categorySection {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .categoryHeader {
   display: flex;
   align-items: center;

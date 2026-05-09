@@ -269,10 +269,10 @@ export default function UsersPage() {
             <thead className={styles.thead}>
               <tr>
                 <th>Name</th>
-                <th>Email</th>
+                <th className={styles.colEmail}>Email</th>
                 <th>Role</th>
                 <th>Status</th>
-                <th>Last login</th>
+                <th className={styles.colLastLogin}>Last login</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -289,7 +289,7 @@ export default function UsersPage() {
                       {u.id === self?.id && <span className={styles.youLabel}>you</span>}
                       {u.mustChangePassword && <span className={styles.mustChangeBadge}>pwd reset</span>}
                     </td>
-                    <td className={styles.emailCell}>{u.email}</td>
+                    <td className={`${styles.emailCell} ${styles.colEmail}`}>{u.email}</td>
                     <td>
                       <span className={`${styles.roleBadge} ${u.role === 'owner' ? styles.roleOwner : styles.roleCashier}`}>
                         {u.role}
@@ -300,7 +300,7 @@ export default function UsersPage() {
                         {u.isActive ? 'Active' : 'Inactive'}
                       </span>
                     </td>
-                    <td>{fmtDate(u.lastLoginAt)}</td>
+                    <td className={styles.colLastLogin}>{fmtDate(u.lastLoginAt)}</td>
                     <td>
                       <div className={styles.actionsCell}>
                         <button

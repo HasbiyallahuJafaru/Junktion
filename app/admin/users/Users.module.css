@@ -45,7 +45,8 @@
   background: #111111;
   border: 1px solid #1A1A1A;
   border-radius: 4px;
-  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table { width: 100%; border-collapse: collapse; }
@@ -194,6 +195,22 @@
   text-align: center;
   color: #6B6760;
   font-size: 0.85rem;
+}
+
+/* ── Mobile responsive ── */
+@media (max-width: 640px) {
+  .page { max-width: 100%; }
+
+  .colEmail,
+  .colLastLogin { display: none; }
+
+  .tbody td { padding: 12px 10px; }
+  .thead th  { padding: 10px 10px; }
+
+  .actionsCell { gap: 4px; }
+
+  .actionBtn { padding: 6px 8px; font-size: 0; gap: 0; }
+  .actionBtn svg { width: 14px; height: 14px; }
 }
 
 /* ── Drawer ── */
