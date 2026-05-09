@@ -42,7 +42,7 @@ function LoginForm() {
         body:    JSON.stringify({ email, password }),
       })
 
-      let data: { error?: string; accessToken?: string; user?: unknown }
+      let data: { error?: string; accessToken?: string; user?: { id: string; name: string; email: string; role: 'owner' | 'cashier'; mustChangePassword?: boolean } }
       try {
         data = await res.json()
       } catch {
@@ -55,7 +55,7 @@ function LoginForm() {
         return
       }
 
-      login(data.accessToken, data.user)
+      login(data.accessToken!, data.user!)
       router.replace(params.get('from') ?? '/admin/orders')
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err)
