@@ -180,7 +180,7 @@ function MenuCard({ item, index, onAdd }: { item: PublicMenuItem; index: number;
             fill
             sizes="(max-width: 600px) 44vw, (max-width: 1024px) 30vw, 240px"
             className={styles.img}
-            unoptimized={item.imageUrl.includes('unsplash')}
+            unoptimized
           />
         </div>
       </div>

@@ -35,7 +35,7 @@ export function MenuItem({ item, index, onAdd, formatPrice }: Props) {
           fill
           sizes="(max-width: 768px) 100vw, 400px"
           className={styles.image}
-          unoptimized={item.imageUrl.includes('unsplash')}
+          unoptimized
         />
       </div>
 
