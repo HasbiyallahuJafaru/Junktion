@@ -95,7 +95,7 @@ function ImageUploader({ token, imageUrl, onUploaded }: UploaderProps) {
     <div className={styles.imageUpload}>
       {imageUrl && (
         <div className={styles.imagePreview}>
-          <Image src={imageUrl} alt="Preview" fill className={styles.imagePreviewImg} unoptimized />
+          <Image src={imageUrl} alt="Preview" fill className={styles.imagePreviewImg} />
         </div>
       )}
       <button
@@ -407,7 +407,7 @@ export default function MenuPage() {
             <div key={item.id} className={`${styles.card} ${!item.isAvailable ? styles.cardUnavailable : ''}`}>
               <div className={styles.imageWrap}>
                 {item.imageUrl && (
-                  <Image src={item.imageUrl} alt={item.name} fill className={styles.cardImg} unoptimized />
+                  <Image src={item.imageUrl} alt={item.name} fill className={styles.cardImg} />
                 )}
                 {item.isFeatured && <span className={styles.featuredBadge}>Featured</span>}
                 {!item.isAvailable && <span className={styles.unavailableBadge}>Hidden</span>}
