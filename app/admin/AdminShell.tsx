@@ -95,8 +95,8 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         {/* Mobile top bar */}
         <header className={styles.mobileBar}>
           <span className={styles.mobileWordmark}>Junktion Admin</span>
-          <button onClick={handleLogout} className={styles.menuBtn} aria-label="Sign out">
-            <LogOut size={20} strokeWidth={1.5} />
+          <button onClick={handleLogout} className={styles.logoutText} aria-label="Sign out">
+            Logout
           </button>
         </header>
 
