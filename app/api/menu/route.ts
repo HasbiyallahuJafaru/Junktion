@@ -3,6 +3,8 @@ import { db } from '@/app/db'
 import { menuItems } from '@/app/db/schema'
 import { eq, asc } from 'drizzle-orm'
 
+export const dynamic = 'force-dynamic'
+
 /** GET /api/menu — returns all available menu items, ordered by display_order */
 export async function GET() {
   try {
