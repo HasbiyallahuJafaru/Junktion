@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { Plus } from 'lucide-react'
-import { formatPrice } from '@/app/lib/utils'
+import { formatPrice, cloudinaryAuto } from '@/app/lib/utils'
 import { useCart } from '@/app/context/CartContext'
 import styles from './MenuSection.module.css'
 
@@ -204,7 +204,7 @@ function MenuCard({ item, index, onAdd }: { item: PublicMenuItem; index: number;
         )}
         <div className={styles.imgInner}>
           <Image
-            src={item.imageUrl}
+            src={cloudinaryAuto(item.imageUrl)}
             alt={item.name}
             fill
             sizes="(max-width: 600px) 44vw, (max-width: 1024px) 30vw, 240px"

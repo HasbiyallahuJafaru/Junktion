@@ -24,6 +24,16 @@ export const VALID_TRANSITIONS: Record<string, string[]> = {
 export const isValidTransition = (from: string, to: string): boolean =>
   VALID_TRANSITIONS[from]?.includes(to) ?? false
 
+/**
+ * Inserts f_auto,q_auto into a Cloudinary URL so Cloudinary converts the image
+ * to the best format for the requesting browser (WebP/JPEG). Fixes HEIC images
+ * uploaded from iPhones failing to render on Android / non-Apple browsers.
+ */
+export function cloudinaryAuto(url: string): string {
+  if (!url || !url.includes('res.cloudinary.com')) return url
+  return url.replace('/image/upload/', '/image/upload/f_auto,q_auto/')
+}
+
 /** Strip cloudinaryPublicId from public menu responses */
 export function toPublicMenuItem(item: typeof menuItems.$inferSelect) {
   const { cloudinaryPublicId, ...rest } = item
