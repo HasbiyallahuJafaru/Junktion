@@ -33,9 +33,7 @@ export function MenuItem({ item, index, onAdd, formatPrice }: Props) {
           src={item.imageUrl}
           alt={item.name}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 400px"
           className={styles.image}
-          unoptimized={item.imageUrl.startsWith('https://images.unsplash.com')}
         />
       </div>
 
