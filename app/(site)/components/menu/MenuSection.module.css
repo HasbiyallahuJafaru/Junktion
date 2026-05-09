@@ -187,7 +187,7 @@
 .imgArea {
   position: relative;
   width: 100%;
-  aspect-ratio: 3 / 4;
+  padding-top: 133.33%; /* 3:4 ratio — padding-top hack works on all mobile browsers */
   overflow: hidden;
   background: #DDD8CF;
   border: 1.5px dashed #B8B3AD;
