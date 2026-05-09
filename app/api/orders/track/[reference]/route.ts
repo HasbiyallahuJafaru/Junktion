@@ -5,8 +5,6 @@ import { eq } from 'drizzle-orm'
 
 export const dynamic = 'force-dynamic'
 
-export const dynamic = 'force-dynamic'
-
 /** GET /api/orders/track/[reference] — public order status lookup */
 export async function GET(
   _req: NextRequest,
