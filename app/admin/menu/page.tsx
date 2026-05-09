@@ -95,7 +95,7 @@ function ImageUploader({ token, imageUrl, onUploaded }: UploaderProps) {
     <div className={styles.imageUpload}>
       {imageUrl && (
         <div className={styles.imagePreview}>
-          <Image src={imageUrl} alt="Preview" fill className={styles.imagePreviewImg} />
+          <Image src={imageUrl} alt="Preview" fill className={styles.imagePreviewImg} unoptimized />
         </div>
       )}
       <button
@@ -149,9 +149,11 @@ function FormDrawer({ item, open, token, onClose, onSaved }: FormDrawerProps) {
     setForm(prev => ({ ...prev, [k]: v }))
 
   const handleSubmit = async () => {
-    if (!form.name.trim() || !form.imageUrl) { setError('Name and image are required'); return }
+    if (!form.name.trim()) { setError('Name is required'); return }
+    if (!form.imageUrl || !form.cloudinaryPublicId) { setError('Please upload an image before saving'); return }
+    if (form.description.trim().length < 5) { setError('Description must be at least 5 characters'); return }
     const price = Math.round(parseFloat(form.price) * 100)
-    if (!price || price <= 0) { setError('Enter a valid price'); return }
+    if (!price || price <= 0) { setError('Enter a valid price in Naira (e.g. 3900)'); return }
 
     setSaving(true); setError('')
     try {
@@ -405,7 +407,7 @@ export default function MenuPage() {
             <div key={item.id} className={`${styles.card} ${!item.isAvailable ? styles.cardUnavailable : ''}`}>
               <div className={styles.imageWrap}>
                 {item.imageUrl && (
-                  <Image src={item.imageUrl} alt={item.name} fill className={styles.cardImg} />
+                  <Image src={item.imageUrl} alt={item.name} fill className={styles.cardImg} unoptimized />
                 )}
                 {item.isFeatured && <span className={styles.featuredBadge}>Featured</span>}
                 {!item.isAvailable && <span className={styles.unavailableBadge}>Hidden</span>}

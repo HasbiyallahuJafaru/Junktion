@@ -201,9 +201,11 @@
   justify-content: center;
   background: none;
   border: none;
-  color: #F5F0EB;
+  color: #9A9490;
   cursor: pointer;
+  transition: color 150ms;
 }
+.menuBtn:hover { color: #F15A22; }
 
 .mobileWordmark {
   font-family: var(--font-display);

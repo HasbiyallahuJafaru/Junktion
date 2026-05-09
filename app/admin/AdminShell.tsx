@@ -5,9 +5,8 @@ import { usePathname, useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 import {
   ShoppingBag, UtensilsCrossed, CreditCard,
-  Users, BarChart2, LogOut, Menu, X,
+  Users, BarChart2, LogOut,
 } from 'lucide-react'
-import { useState } from 'react'
 import { useAdminAuth } from '@/app/context/AdminAuthContext'
 import styles from './AdminShell.module.css'
 
@@ -28,8 +27,6 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   const { user, isLoading, logout } = useAdminAuth()
   const pathname  = usePathname()
   const router    = useRouter()
-  const [mobileOpen, setMobileOpen] = useState(false)
-
   const isLoginPage = pathname === '/admin/login'
 
   useEffect(() => {
@@ -60,7 +57,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
   return (
     <div className={styles.shell}>
       {/* Sidebar */}
-      <aside className={`${styles.sidebar} ${mobileOpen ? styles.sidebarOpen : ''}`}>
+      <aside className={styles.sidebar}>
         <div className={styles.sidebarTop}>
           <div className={styles.brand}>
             <span className={styles.wordmark}>Junktion</span>
@@ -73,7 +70,7 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
                 key={href}
                 href={href}
                 className={`${styles.navItem} ${pathname.startsWith(href) ? styles.navItemActive : ''}`}
-                onClick={() => setMobileOpen(false)}
+  
               >
                 <Icon size={17} strokeWidth={1.5} />
                 <span>{label}</span>
@@ -93,24 +90,14 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
         </div>
       </aside>
 
-      {/* Mobile overlay */}
-      {mobileOpen && (
-        <div className={styles.overlay} onClick={() => setMobileOpen(false)} />
-      )}
-
       {/* Main content */}
       <div className={styles.main}>
         {/* Mobile top bar */}
         <header className={styles.mobileBar}>
-          <button
-            onClick={() => setMobileOpen(true)}
-            className={styles.menuBtn}
-            aria-label="Open menu"
-          >
-            <Menu size={20} strokeWidth={1.5} />
-          </button>
           <span className={styles.mobileWordmark}>Junktion Admin</span>
-          <div style={{ width: 36 }} />
+          <button onClick={handleLogout} className={styles.menuBtn} aria-label="Sign out">
+            <LogOut size={20} strokeWidth={1.5} />
+          </button>
         </header>
 
         {/* Must-change-password banner */}

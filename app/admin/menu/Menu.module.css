@@ -336,6 +336,10 @@
   gap: 14px;
 }
 
+@media (max-width: 420px) {
+  .row2 { grid-template-columns: 1fr; }
+}
+
 /* ── Image upload ── */
 .imageUpload {
   display: flex;

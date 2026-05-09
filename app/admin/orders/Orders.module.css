@@ -110,7 +110,8 @@
   background: #111111;
   border: 1px solid #1A1A1A;
   border-radius: 4px;
-  overflow: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .table {

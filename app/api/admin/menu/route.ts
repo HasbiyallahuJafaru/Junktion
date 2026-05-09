@@ -38,7 +38,9 @@ export async function POST(req: NextRequest) {
     const body   = await req.json()
     const parsed = menuItemSchema.safeParse(body)
     if (!parsed.success) {
-      return NextResponse.json({ error: parsed.error.issues[0].message }, { status: 400 })
+      const issue = parsed.error.issues[0]
+      const field = String(issue.path[0] ?? 'input')
+      return NextResponse.json({ error: `${field}: ${issue.message}` }, { status: 400 })
     }
 
     const [item] = await db.insert(menuItems).values(parsed.data).returning()
