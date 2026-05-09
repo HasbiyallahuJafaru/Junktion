@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { CartProvider } from '@/app/context/CartContext'
 import { DrawerMount } from '@/app/(site)/components/order/DrawerMount'
+import { WhatsAppButton } from '@/app/(site)/components/WhatsAppButton'
 
 export const metadata: Metadata = {
   title: 'Junktion — Eat. Different.',
@@ -21,6 +22,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
     <CartProvider>
       {children}
       <DrawerMount />
+      <WhatsAppButton />
     </CartProvider>
   )
 }
